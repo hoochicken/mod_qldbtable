@@ -43,12 +43,24 @@
             <fieldset name="basic">
 				<field name="tablename" default="#__" label="MOD_QLDBTABLE_TABLENAME_LABEL" description="MOD_QLDBTABLE_TABLENAME_DESC" />
 				<field name="conditions" type="textarea" default="state=1" label="MOD_QLDBTABLE_CONDITIONS_LABEL" description="MOD_QLDBTABLE_CONDITIONS_DESC" />
-				<field name="use_raw_query" type="radio" default="0" label="MOD_QLDBTABLE_USERAWQUERY_LABEL" description="MOD_QLDBTABLE_USERAWQUERY_DESC" class="btn-group btn-yesno">
+				<field name="use_raw_query" type="radio" default="0" label="MOD_QLDBTABLE_USERAWQUERY_LABEL" description="MOD_QLDBTABLE_USERAWQUERY_DESC" class="btn-group btn-group-yesno">
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
 				<field name="raw_query" type="textarea" default="SELECT * FROM #__tablename WHERE state = 1" label="MOD_QLDBTABLE_RAWQUERY_LABEL" description="MOD_QLDBTABLE_RAWQUERY_DESC" />
             </fieldset>
+
+
+			<fieldset name="display">
+				<field name="field1" type="qldbtablecolumn" label="MOD_QLDBTABLE_FIELD_LABEL" description="MOD_QLDBTABLE_FIELD_DESC" />
+				<field name="conditions" type="textarea" default="state=1" label="MOD_QLDBTABLE_CONDITIONS_LABEL" description="MOD_QLDBTABLE_CONDITIONS_DESC" />
+				<field name="use_raw_query" type="radio" default="0" label="MOD_QLDBTABLE_USERAWQUERY_LABEL" description="MOD_QLDBTABLE_USERAWQUERY_DESC" class="btn-group btn-group-yesno">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field name="raw_query" type="textarea" default="SELECT * FROM #__tablename WHERE state = 1" label="MOD_QLDBTABLE_RAWQUERY_LABEL" description="MOD_QLDBTABLE_RAWQUERY_DESC" />
+			</fieldset>
+
 
 			<fieldset
 				name="advanced">
