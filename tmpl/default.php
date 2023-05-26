@@ -11,6 +11,9 @@ defined('_JEXEC') or die;
 $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
 $wa->registerStyle('qldbtable', 'mod_qldbtable/styles.css');
 $wa->useStyle('qldbtable');
+
+/* @var stdClass $module */
+/* @var \Joomla\Registry\Registry $params */
 ?>
 
 <div class="qldbtable" id="module<?php echo $module->id ?>">
