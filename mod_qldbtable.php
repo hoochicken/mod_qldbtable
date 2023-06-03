@@ -7,11 +7,18 @@
  */
 
 // no direct access
+use Joomla\CMS\Factory;
+use Joomla\Database\DatabaseInterface;
+
 defined('_JEXEC') or die;
-require_once dirname(__FILE__).'/helper.php';
+require_once dirname(__FILE__).'/modQldbtableHelper.php';
+require_once dirname(__FILE__).'/vendor/autoload.php';
 
 /** @var $module  */
 /** @var $params  */
-$obj_helper = new modQldbtableHelper($module, $params);
+$helper = new modQldbtableHelper($module, $params, Factory::getContainer()->get(DatabaseInterface::class));
+
+$columns = $helper->getColumns();
+$data = $helper->getData();
 
 require JModuleHelper::getLayoutPath('mod_qldbtable', $params->get('layout', 'default'));

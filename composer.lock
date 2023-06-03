@@ -1,0 +1,59 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "15737e4c3f54b6b68779b63e39c20cf0",
+    "packages": [
+        {
+            "name": "hoochicken/datagrid",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hoochicken/datagrid.git",
+                "reference": "7523875b344562526481d28bb498f366020b74c0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hoochicken/datagrid/zipball/7523875b344562526481d28bb498f366020b74c0",
+                "reference": "7523875b344562526481d28bb498f366020b74c0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Hoochicken\\Datagrid\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mareike Riegel",
+                    "email": "info@ql.de"
+                }
+            ],
+            "description": "datagrid",
+            "support": {
+                "issues": "https://github.com/hoochicken/datagrid/issues",
+                "source": "https://github.com/hoochicken/datagrid/tree/v1.0.1"
+            },
+            "time": "2023-05-26T16:56:13+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.2.0"
+}

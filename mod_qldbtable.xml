@@ -52,13 +52,53 @@
 
 
 			<fieldset name="display">
-				<field name="field1" type="qldbtablecolumn" label="MOD_QLDBTABLE_FIELD_LABEL" description="MOD_QLDBTABLE_FIELD_DESC" />
-				<field name="conditions" type="textarea" default="state=1" label="MOD_QLDBTABLE_CONDITIONS_LABEL" description="MOD_QLDBTABLE_CONDITIONS_DESC" />
-				<field name="use_raw_query" type="radio" default="0" label="MOD_QLDBTABLE_USERAWQUERY_LABEL" description="MOD_QLDBTABLE_USERAWQUERY_DESC" class="btn-group btn-group-yesno">
-					<option value="1">JYES</option>
-					<option value="0">JNO</option>
+				<field name="display" label="MOD_QLDBTABLE_DISPLAY_LABEL" type="list" default="table">
+					<option value="table">MOD_QLDBTABLE_DISPLAY_TABLE</option>
+					<option value="cards">MOD_QLDBTABLE_DISPLAY_CARDS</option>
 				</field>
-				<field name="raw_query" type="textarea" default="SELECT * FROM #__tablename WHERE state = 1" label="MOD_QLDBTABLE_RAWQUERY_LABEL" description="MOD_QLDBTABLE_RAWQUERY_DESC" />
+				<!--field name="field1" type="qldbtablecolumn" label="MOD_QLDBTABLE_FIELD_LABEL" class="form-control" /-->
+				<field name="column1" label="MOD_QLDBTABLE_COLUMN1_LABEL" />
+				<field name="column1_text" label="MOD_QLDBTABLE_TEXT_LABEL" />
+				<field name="column1_type" label="MOD_QLDBTABLE_TYPE_LABEL" type="list" default="text">
+					<option value="text">Text</option>
+					<option value="image">Image</option>
+				</field>
+				<field name="column2" label="MOD_QLDBTABLE_COLUMN2_LABEL" />
+				<field name="column2_text" label="MOD_QLDBTABLE_TEXT_LABEL" />
+				<field name="column2_type" label="MOD_QLDBTABLE_TYPE_LABEL" type="list" default="text">
+					<option value="text">Text</option>
+					<option value="image">Image</option>
+				</field>
+				<field name="column3" label="MOD_QLDBTABLE_COLUMN3_LABEL" />
+				<field name="column3_text" label="MOD_QLDBTABLE_TEXT_LABEL" />
+				<field name="column3_type" label="MOD_QLDBTABLE_TYPE_LABEL" type="list" default="text">
+					<option value="text">Text</option>
+					<option value="image">Image</option>
+				</field>
+				<field name="column4" label="MOD_QLDBTABLE_COLUMN4_LABEL" />
+				<field name="column4_text" label="MOD_QLDBTABLE_TEXT_LABEL" />
+				<field name="column4_type" label="MOD_QLDBTABLE_TYPE_LABEL" type="list" default="text">
+					<option value="text">Text</option>
+					<option value="image">Image</option>
+				</field>
+				<field name="column5" label="MOD_QLDBTABLE_COLUMN5_LABEL" />
+				<field name="column5_text" label="MOD_QLDBTABLE_TEXT_LABEL" />
+				<field name="column5_type" label="MOD_QLDBTABLE_TYPE_LABEL" type="list" default="text">
+					<option value="text">Text</option>
+					<option value="image">Image</option>
+				</field>
+				<field name="column6" label="MOD_QLDBTABLE_COLUMN6_LABEL" />
+				<field name="column6_text" label="MOD_QLDBTABLE_TEXT_LABEL" />
+				<field name="column6_type" label="MOD_QLDBTABLE_TYPE_LABEL" type="list" default="text">
+					<option value="text">Text</option>
+					<option value="image">Image</option>
+				</field>
+				<field name="column7" label="MOD_QLDBTABLE_COLUMN7_LABEL" />
+				<field name="column7_text" label="MOD_QLDBTABLE_TEXT_LABEL" />
+				<field name="column7_type" label="MOD_QLDBTABLE_TYPE_LABEL" type="list" default="text">
+					<option value="text">Text</option>
+					<option value="image">Image</option>
+				</field>
 			</fieldset>
 
 

@@ -1,1 +1,5 @@
-{}
+{
+    "require": {
+        "hoochicken/datagrid": "^1.0"
+    }
+}
