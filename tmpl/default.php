@@ -8,6 +8,8 @@
 
 use Hoochicken\Datagrid\Datagrid;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Helper\ModuleHelper;
+
 // no direct access
 defined('_JEXEC') or die;
 $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
@@ -22,8 +24,10 @@ $wa->useStyle('qldbtable');
 
 <div class="qldbtable" id="module<?php echo $module->id ?>">
     <?php
-    $datagridtable = new Datagrid();
-    $datagridtable->setTableClass('table table-striped');
-    echo $datagridtable->getTable($data, $columns);
+    if ($params->get('display', 'cards')) {
+        require ModuleHelper::getLayoutPath('mod_qldbtable', 'default_cards');
+    } else {
+        require ModuleHelper::getLayoutPath('mod_qldbtable', 'default_table');
+    }
     ?>
 </div>
