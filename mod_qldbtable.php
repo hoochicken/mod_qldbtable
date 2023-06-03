@@ -16,7 +16,19 @@ require_once dirname(__FILE__).'/vendor/autoload.php';
 
 /** @var $module  */
 /** @var $params  */
+$app = Factory::getApplication();
 $helper = new modQldbtableHelper($module, $params, Factory::getContainer()->get(DatabaseInterface::class));
+$imageColumn = $params->get('cardImageColumn', '');
+$labelColumn = $params->get('cardLabelColumn', '');
+
+if ('cards' === $params->get('display')) {
+    if (empty($imageColumn)) {
+        $app->enqueueMessage('MOD_QLDBTABLE_MSG_SET_IMAGECOLUMN');
+    }
+    if (empty($labelColumn)) {
+        $app->enqueueMessage('MOD_QLDBTABLE_MSG_SET_LABELCOLUMN');
+    }
+}
 
 $columns = $helper->getColumns();
 $data = $helper->getData();

@@ -15,16 +15,18 @@ defined('_JEXEC') or die;
 /* @var \Joomla\Registry\Registry $params */
 /* @var array $columns */
 /* @var array $data */
+/* @var Joomla\Application\ $app */
+/* @var string $imageColumn */
+/* @var string $labelColumn */
+
 ?>
 <div class="card-group">
 <?php foreach ($data as $k => $entry) : ?>
-<div class="card">
-    <img class="card-img-top" src="<?php echo $entry['pic']; ?>" alt="">
-    <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+    <div class="card">
+        <img class="card-img-top" src="<?php echo $entry[$imageColumn]; ?>" alt="">
+        <div class="card-body">
+            <h5 class="card-title"><?php echo $entry[$labelColumn]; ?></h5>
+        </div>
     </div>
-</div>
 <?php endforeach; ?>
 </div>

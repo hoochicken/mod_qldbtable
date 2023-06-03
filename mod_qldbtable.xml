@@ -50,13 +50,15 @@
 				<field name="raw_query" type="textarea" default="SELECT * FROM #__tablename WHERE state = 1" label="MOD_QLDBTABLE_RAWQUERY_LABEL" description="MOD_QLDBTABLE_RAWQUERY_DESC" />
             </fieldset>
 
-
 			<fieldset name="display">
 				<field name="display" label="MOD_QLDBTABLE_DISPLAY_LABEL" type="list" default="table">
 					<option value="table">MOD_QLDBTABLE_DISPLAY_TABLE</option>
 					<option value="cards">MOD_QLDBTABLE_DISPLAY_CARDS</option>
 				</field>
 				<!--field name="field1" type="qldbtablecolumn" label="MOD_QLDBTABLE_FIELD_LABEL" class="form-control" /-->
+			</fieldset>
+
+			<fieldset name="table">
 				<field name="column1" label="MOD_QLDBTABLE_COLUMN1_LABEL" />
 				<field name="column1_text" label="MOD_QLDBTABLE_TEXT_LABEL" />
 				<field name="column1_type" label="MOD_QLDBTABLE_TYPE_LABEL" type="list" default="text">
@@ -99,6 +101,11 @@
 					<option value="text">Text</option>
 					<option value="image">Image</option>
 				</field>
+			</fieldset>
+
+			<fieldset name="cars">
+				<field name="cardImageColumn" label="MOD_QLDBTABLE_IMAGECOLUMN_LABEL" />
+				<field name="cardLabelColumn" label="MOD_QLDBTABLE_LABELCOLUMN_LABEL" />
 			</fieldset>
 
 
