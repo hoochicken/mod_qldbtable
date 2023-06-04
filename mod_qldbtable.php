@@ -11,13 +11,13 @@ use Joomla\CMS\Factory;
 use Joomla\Database\DatabaseInterface;
 
 defined('_JEXEC') or die;
-require_once dirname(__FILE__).'/modQldbtableHelper.php';
+require_once dirname(__FILE__).'/QldbtableHelper.php';
 require_once dirname(__FILE__).'/vendor/autoload.php';
 
 /** @var $module  */
 /** @var $params  */
 $app = Factory::getApplication();
-$helper = new modQldbtableHelper($module, $params, Factory::getContainer()->get(DatabaseInterface::class));
+$helper = new QldbtableHelper($module, $params, Factory::getContainer()->get(DatabaseInterface::class));
 $imageColumn = $params->get('cardImageColumn', '');
 $labelColumn = $params->get('cardLabelColumn', '');
 
@@ -32,5 +32,6 @@ if ('cards' === $params->get('display')) {
 
 $columns = $helper->getColumns();
 $data = $helper->getData();
+$data = $helper->alterData($data, $helper->getColumnType());
 
 require JModuleHelper::getLayoutPath('mod_qldbtable', $params->get('layout', 'default'));

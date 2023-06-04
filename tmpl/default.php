@@ -24,7 +24,7 @@ $wa->useStyle('qldbtable');
 
 <div class="qldbtable" id="module<?php echo $module->id ?>">
     <?php
-    if ($params->get('display', 'cards')) {
+    if ($params->get('display', QldbtableHelper::DISPLAY_DEFAULT) === QldbtableHelper::DISPLAY_CARDS) {
         require ModuleHelper::getLayoutPath('mod_qldbtable', 'default_cards');
     } else {
         require ModuleHelper::getLayoutPath('mod_qldbtable', 'default_table');
