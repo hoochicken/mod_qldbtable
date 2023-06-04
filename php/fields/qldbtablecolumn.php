@@ -32,29 +32,32 @@ class JFormFieldQldbtableColumn extends JFormField
      */
     protected function getInput()
     {
+        $type_column = 'column_' . $this->id;
+        $type_label = 'label_' . $this->id;
+        $type_type = 'type_' . $this->id;
+
+        $value = explode(';', $this->value);
+
         $html = '';
         $html .= '<div class="row col-md-6">';
-        $html .= sprintf('<div class="col-md-4"><input name="column_%s" class="form-control" /></div>', $this->name);
-        $html .= sprintf('<div class="col-md-4"><select name="type_%s" class="form-control">
+        $html .= sprintf('<div class="col-md-4"><input id="id_%s" name="%s" class="form-control class_%s" value="%s" /></div>', $type_column, $type_column, $this->id, $value[0]);
+        $html .= sprintf('<div class="col-md-4"><input id="id_%s" name="%s" class="form-control class_%s" value="%s" /></div>', $type_label, $type_label, $this->id, $value[1]);
+        $html .= sprintf('<div class="col-md-4"><select id="id_%s" name="%s" class="form-control class_%s" value="%s" >
             <option value="text">Text</option>
             <option value="image">Image</option>
             </select>
-                </div>', $this->name);
-        $html .= sprintf('<div class="col-md-4"><input name="value_%s" class="form-control" /></div>', $this->name);
+                </div>', $type_type, $type_type, $this->id, $value[2]);
+        $html .= sprintf('<input id="%s" name="%s" class="form-control" type="hidden" value="%s"/>', $this->id, $this->name, $this->value);
         $html .= '</div>';
-        // $html .= '<textarea class="form-control" style="width:400px;height:400px;" name="' . $this->name . '" id="' . $this->id . '">';
-        // $html .= $this->value;
-        // $html .= '</textarea>';
+
+        $html .= sprintf('
+        <script>$(".class_%s").change(function() {
+          let value = $("#id_%s").val() + ";" + $("#id_%s").val() + ";" + $("#id_%s").val();
+          $("#%s").val(value);
+        })</script>
+        
+        ', $this->id, $type_column, $type_label, $type_type, $this->id);
+
         return $html;
-    }
-
-    public function filter($value, $group = null, Registry $input = null)
-    {
-        $test = 0;
-    }
-
-    public function validate($value, $group = null, Registry $input = null)
-    {
-        $test = 0;
     }
 }

@@ -73,19 +73,21 @@ class QldbtableHelper
 
     public function getStructure()
     {
-        $column = 'column%s';
-        $colname = $column . '_' . self::TYPE_COLNAME;
-        $type = $column . '_' . self::TYPE_TYPE;
-        $label = $column . '_' . self::TYPE_LABEL;
+        $columnField = 'column%s';
 
         $structure = [];
         for ($i = 1; $i <= self::NUMBER_COLUMNS; $i++) {
-            $columnName = $this->params->get(sprintf($colname, $i));
-            if (empty($columnName)) {
+
+            $fieldname = sprintf($columnField, $i);
+            $column = $this->params->get($fieldname);
+            $columnDisplay = explode(';', $column);
+            if (3 !== count($columnDisplay)) {
                 continue;
             }
-            $columnType = $this->params->get(sprintf($type, $i));
-            $columnLabel = $this->params->get(sprintf($label, $i));
+            $columnName = $columnDisplay[0];
+            $columnLabel = $columnDisplay[1];
+            $columnType = $columnDisplay[2];
+
             $structure[$columnName] = [
                 'column' => $columnName,
                 self::TYPE_COLNAME => $columnName,
