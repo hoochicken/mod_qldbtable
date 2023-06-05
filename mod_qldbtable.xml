@@ -10,7 +10,7 @@
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
 	<authorEmail>mareike.riegel@ql.de</authorEmail>
 	<authorUrl>ql.de</authorUrl>
-	<version>1.0.2</version>
+	<version>1.0.3</version>
 	<description>MOD_QLDBTABLE_XML_DESCRIPTION</description>
 	<updateservers>
         <server type="extension" priority="1" name="qldbtable - Updates">https://raw.githubusercontent.com/hoochicken/mod_qldbtable/main/_jupdate/mod_qldbtable.xml</server>
