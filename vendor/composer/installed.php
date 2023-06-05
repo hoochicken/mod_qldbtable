@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'bb06eb798c5065143de7e662040bba35b542cf05',
+        'reference' => '33b0a657427870dbb351fa114b9a0c94ecb8c8e2',
         'name' => '__root__',
         'dev' => true,
     ),
@@ -16,7 +16,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'bb06eb798c5065143de7e662040bba35b542cf05',
+            'reference' => '33b0a657427870dbb351fa114b9a0c94ecb8c8e2',
             'dev_requirement' => false,
         ),
         'hoochicken/datagrid' => array(
