@@ -21,8 +21,9 @@
 		<folder>css</folder>
 		<folder>js</folder>
 		<folder>language</folder>
-		<folder>tmpl</folder>
 		<folder>php</folder>
+		<folder>tmpl</folder>
+		<folder>vendor</folder>
 		<filename>QldbtableHelper.php</filename>
 		<filename>index.html</filename>
 		<filename>license.txt</filename>
