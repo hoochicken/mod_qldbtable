@@ -22,6 +22,7 @@ $helper = new QldbtableHelper($module, $params, Factory::getContainer()->get(Dat
 if (QldbtableHelper::DISPLAY_CARDS === $params->get('display')) {
     $imageColumn = $params->get('cardImageColumn', '');
     $labelColumn = $params->get('cardLabelColumn', '');
+    $cardCssClass = $params->get('cardCssClass', 'col-md-2');
     if (empty($imageColumn)) {
         $app->enqueueMessage('MOD_QLDBTABLE_MSG_SET_IMAGECOLUMN');
     }

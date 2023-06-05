@@ -76,6 +76,7 @@
 					<option value="1">MOD_QLDBTABLE_IMAGECOLUMN_IMAGETAG_YES</option>
 					<option value="0">MOD_QLDBTABLE_IMAGECOLUMN_IMAGETAG_NO</option>
 				</field>
+				<field name="cardCssClass" label="MOD_QLDBTABLE_CARDCSSCLASS_LABEL" />
 			</fieldset>
 
 

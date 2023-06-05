@@ -18,11 +18,12 @@ defined('_JEXEC') or die;
 /* @var Joomla\Application\ $app */
 /* @var string $imageColumn */
 /* @var string $labelColumn */
+/* @var string $cardCssClass */
 
 ?>
 <div class="card-group">
 <?php foreach ($data as $k => $entry) : ?>
-    <div class="card">
+    <div class="card <?php echo $cardCssClass; ?>">
         <?php echo $entry[$imageColumn]; ?>
         <div class="card-body">
             <h5 class="card-title"><?php echo $entry[$labelColumn]; ?></h5>
