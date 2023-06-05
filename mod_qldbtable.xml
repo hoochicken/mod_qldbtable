@@ -65,11 +65,18 @@
 				<field name="column5" type="qldbtablecolumn" label="MOD_QLDBTABLE_COLUMN5_LABEL" />
 				<field name="column6" type="qldbtablecolumn" label="MOD_QLDBTABLE_COLUMN6_LABEL" />
 				<field name="column7" type="qldbtablecolumn" label="MOD_QLDBTABLE_COLUMN7_LABEL" />
+				<field name="column8" type="qldbtablecolumn" label="MOD_QLDBTABLE_COLUMN8_LABEL" />
+				<field name="column9" type="qldbtablecolumn" label="MOD_QLDBTABLE_COLUMN9_LABEL" />
+				<field name="column10" type="qldbtablecolumn" label="MOD_QLDBTABLE_COLUMN10_LABEL" />
 			</fieldset>
 
-			<fieldset name="cars">
-				<field name="cardImageColumn" label="MOD_QLDBTABLE_IMAGECOLUMN_LABEL" />
+			<fieldset name="cards">
 				<field name="cardLabelColumn" label="MOD_QLDBTABLE_LABELCOLUMN_LABEL" />
+				<field name="cardImageColumn" label="MOD_QLDBTABLE_IMAGECOLUMN_LABEL" />
+				<field name="cardImageTag" type="radio" default="1" label="MOD_QLDBTABLE_IMAGECOLUMN_IMAGETAG_LABEL" description="MOD_QLDBTABLE_USERAWQUERY_DESC" class="btn-group btn-group-yesno">
+					<option value="1">MOD_QLDBTABLE_IMAGECOLUMN_IMAGETAG_YES</option>
+					<option value="0">MOD_QLDBTABLE_IMAGECOLUMN_IMAGETAG_NO</option>
+				</field>
 			</fieldset>
 
 

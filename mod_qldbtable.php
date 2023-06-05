@@ -34,6 +34,8 @@ $columns = $helper->getColumns();
 $data = $helper->getData();
 if (QldbtableHelper::DISPLAY_TABLE === $params->get('display', QldbtableHelper::DISPLAY_DEFAULT)) {
     $data = $helper->alterData($data, $helper->getColumnType());
+} elseif (QldbtableHelper::DISPLAY_CARDS === $params->get('display', QldbtableHelper::DISPLAY_DEFAULT) && (bool)$params->get('cardImageTag', true)) {
+    $data = $helper->alterData($data, [$params->get('cardImageColumn') => QldbtableHelper::TYPE_IMAGE]);
 }
 
 require JModuleHelper::getLayoutPath('mod_qldbtable', $params->get('layout', 'default'));

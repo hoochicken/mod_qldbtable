@@ -23,7 +23,7 @@ defined('_JEXEC') or die;
 <div class="card-group">
 <?php foreach ($data as $k => $entry) : ?>
     <div class="card">
-        <img class="card-img-top" src="<?php echo $entry[$imageColumn]; ?>" alt="">
+        <?php echo $entry[$imageColumn]; ?>
         <div class="card-body">
             <h5 class="card-title"><?php echo $entry[$labelColumn]; ?></h5>
         </div>
