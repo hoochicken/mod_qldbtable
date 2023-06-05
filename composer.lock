@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "hoochicken/datagrid",
-            "version": "v1.0.1",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hoochicken/datagrid.git",
-                "reference": "7523875b344562526481d28bb498f366020b74c0"
+                "reference": "4244e2e3b9553891f5299b8805397cc00294007f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hoochicken/datagrid/zipball/7523875b344562526481d28bb498f366020b74c0",
-                "reference": "7523875b344562526481d28bb498f366020b74c0",
+                "url": "https://api.github.com/repos/hoochicken/datagrid/zipball/4244e2e3b9553891f5299b8805397cc00294007f",
+                "reference": "4244e2e3b9553891f5299b8805397cc00294007f",
                 "shasum": ""
             },
             "require": {
@@ -42,9 +42,9 @@
             "description": "datagrid",
             "support": {
                 "issues": "https://github.com/hoochicken/datagrid/issues",
-                "source": "https://github.com/hoochicken/datagrid/tree/v1.0.1"
+                "source": "https://github.com/hoochicken/datagrid/tree/v1.0.2"
             },
-            "time": "2023-05-26T16:56:13+00:00"
+            "time": "2023-06-04T09:11:20+00:00"
         }
     ],
     "packages-dev": [],
