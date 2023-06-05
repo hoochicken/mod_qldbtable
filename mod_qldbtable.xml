@@ -10,7 +10,7 @@
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
 	<authorEmail>mareike.riegel@ql.de</authorEmail>
 	<authorUrl>ql.de</authorUrl>
-	<version>1.0.3</version>
+	<version>1.0.4</version>
 	<description>MOD_QLDBTABLE_XML_DESCRIPTION</description>
 	<updateservers>
         <server type="extension" priority="1" name="qldbtable - Updates">https://raw.githubusercontent.com/hoochicken/mod_qldbtable/main/_jupdate/mod_qldbtable.xml</server>
@@ -41,7 +41,8 @@
 		<fields name="params" addfieldpath="/modules/mod_qldbtable/php/fields" addrulepath="/modules/mod_qldbtable/php/rules">
             <fieldset name="basic">
 				<field name="tablename" default="#__" label="MOD_QLDBTABLE_TABLENAME_LABEL" description="MOD_QLDBTABLE_TABLENAME_DESC" />
-				<field name="conditions" type="textarea" default="state=1" label="MOD_QLDBTABLE_CONDITIONS_LABEL" description="MOD_QLDBTABLE_CONDITIONS_DESC" />
+				<field name="conditions" default="state=1" label="MOD_QLDBTABLE_CONDITIONS_LABEL" description="MOD_QLDBTABLE_CONDITIONS_DESC" />
+				<field name="order_by" placeholder="title ASC" label="MOD_QLDBTABLE_ORDERBY_LABEL" description="MOD_QLDBTABLE_ORDERBY_DESC" />
 				<field name="use_raw_query" type="radio" default="0" label="MOD_QLDBTABLE_USERAWQUERY_LABEL" description="MOD_QLDBTABLE_USERAWQUERY_DESC" class="btn-group btn-group-yesno">
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>

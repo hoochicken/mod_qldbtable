@@ -4,11 +4,11 @@
 		<client>site</client>
 		<type>module</type>
 		<element>qldbtable</element>
-		<version>1.0.3</version>
+		<version>1.0.4</version>
 		<description>qldbtable displays contents of a database table</description>
 		<infourl title="ql.de - Blackforest Software">https://ql.de</infourl>
 		<downloads>
-			<downloadurl type="full" format="zip">https://github.com/hoochicken/mod_qldbtable/archive/refs/tags/v1.0.3.zip</downloadurl>
+			<downloadurl type="full" format="zip">https://github.com/hoochicken/mod_qldbtable/archive/refs/tags/v1.0.4.zip</downloadurl>
 		</downloads>
 		<tags>
 			<tag>stable</tag>

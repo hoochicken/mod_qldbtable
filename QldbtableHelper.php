@@ -117,6 +117,11 @@ class QldbtableHelper
             $query->where($condition);
         }
 
+        $orderBy = trim($this->params->get('order_by'));
+        if (!empty($orderBy)) {
+            $query->order($orderBy);
+        }
+
         $this->db->setQuery($query);
 
         return $this->db->loadAssocList();
