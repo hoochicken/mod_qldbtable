@@ -16,10 +16,12 @@ class QldbtableHelper
     public JDatabaseDriver $db;
     const NUMBER_COLUMNS = 7;
     const DISPLAY_DEFAULT = 'table';
+    const DISPLAY_TABLE = 'table';
     const DISPLAY_CARDS = 'cards';
     const TYPE_COLNAME = 'colname';
     const TYPE_LABEL = 'label';
     const TYPE_TYPE = 'type';
+    const TYPE_TEXT = 'text';
     const TYPE_IMAGE = 'image';
     const HTML_IMG = '<img src="%s" />';
 

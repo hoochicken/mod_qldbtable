@@ -18,10 +18,10 @@ require_once dirname(__FILE__).'/vendor/autoload.php';
 /** @var $params  */
 $app = Factory::getApplication();
 $helper = new QldbtableHelper($module, $params, Factory::getContainer()->get(DatabaseInterface::class));
-$imageColumn = $params->get('cardImageColumn', '');
-$labelColumn = $params->get('cardLabelColumn', '');
 
-if ('cards' === $params->get('display')) {
+if (QldbtableHelper::DISPLAY_CARDS === $params->get('display')) {
+    $imageColumn = $params->get('cardImageColumn', '');
+    $labelColumn = $params->get('cardLabelColumn', '');
     if (empty($imageColumn)) {
         $app->enqueueMessage('MOD_QLDBTABLE_MSG_SET_IMAGECOLUMN');
     }
@@ -32,6 +32,8 @@ if ('cards' === $params->get('display')) {
 
 $columns = $helper->getColumns();
 $data = $helper->getData();
-$data = $helper->alterData($data, $helper->getColumnType());
+if (QldbtableHelper::DISPLAY_TABLE === $params->get('display', QldbtableHelper::DISPLAY_DEFAULT)) {
+    $data = $helper->alterData($data, $helper->getColumnType());
+}
 
 require JModuleHelper::getLayoutPath('mod_qldbtable', $params->get('layout', 'default'));

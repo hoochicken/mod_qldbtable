@@ -38,15 +38,19 @@ class JFormFieldQldbtableColumn extends JFormField
 
         $value = explode(';', $this->value);
 
+        $type = $value[2] ?? 'text';
+        $typeSelectedText = 'text' === $type ? 'selected' : '';
+        $typeSelectedImage = 'image' === $type ? 'selected' : '';
+
         $html = '';
         $html .= '<div class="row col-md-6">';
         $html .= sprintf('<div class="col-md-4"><input id="id_%s" name="%s" class="form-control class_%s" value="%s" /></div>', $type_column, $type_column, $this->id, $value[0]);
         $html .= sprintf('<div class="col-md-4"><input id="id_%s" name="%s" class="form-control class_%s" value="%s" /></div>', $type_label, $type_label, $this->id, $value[1]);
         $html .= sprintf('<div class="col-md-4"><select id="id_%s" name="%s" class="form-control class_%s" value="%s" >
-            <option value="text">Text</option>
-            <option value="image">Image</option>
+            <option value="text" %s>Text</option>
+            <option value="image" %s>Image</option>
             </select>
-                </div>', $type_type, $type_type, $this->id, $value[2]);
+                </div>', $type_type, $type_type, $this->id, $type, $typeSelectedText, $typeSelectedImage);
         $html .= sprintf('<input id="%s" name="%s" class="form-control" type="hidden" value="%s"/>', $this->id, $this->name, $this->value);
         $html .= '</div>';
 
