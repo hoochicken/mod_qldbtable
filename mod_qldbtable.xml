@@ -13,7 +13,7 @@
 	<version>1.0.0</version>
 	<description>MOD_QLDBTABLE_XML_DESCRIPTION</description>
 	<updateservers>
-        <server type="extension" priority="1" name="qldbtable - Updates">https://raw.githubusercontent.com/hoochicken/mod_qlform/main/_jupdate/mod_qldbtable.xml</server>
+        <server type="extension" priority="1" name="qldbtable - Updates">https://raw.githubusercontent.com/hoochicken/mod_qldbtable/main/_jupdate/mod_qldbtable.xml</server>
     </updateservers>
 	<files>
 		<filename module="mod_qldbtable">mod_qldbtable.php</filename>
@@ -23,7 +23,7 @@
 		<folder>language</folder>
 		<folder>tmpl</folder>
 		<folder>php</folder>
-		<filename>helper.php</filename>
+		<filename>QldbtableHelper.php</filename>
 		<filename>index.html</filename>
 		<filename>license.txt</filename>
 		<filename>mod_qldbtable.xml</filename>
@@ -35,8 +35,6 @@
 	<languages>
 		<language tag="en-GB">language/en-GB/en-GB.mod_qldbtable.ini</language>
 		<language tag="en-GB">language/en-GB/en-GB.mod_qldbtable.sys.ini</language>
-		<language tag="de-DE">language/de-DE/de-DE.mod_qldbtable.ini</language>
-		<language tag="de-DE">language/de-DE/de-DE.mod_qldbtable.sys.ini</language>
 	</languages>
 	<config>
 		<fields name="params" addfieldpath="/modules/mod_qldbtable/php/fields" addrulepath="/modules/mod_qldbtable/php/rules">
