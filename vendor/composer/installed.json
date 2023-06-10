@@ -1,0 +1,49 @@
+{
+    "packages": [
+        {
+            "name": "hoochicken/datagrid",
+            "version": "v1.0.2",
+            "version_normalized": "1.0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hoochicken/datagrid.git",
+                "reference": "4244e2e3b9553891f5299b8805397cc00294007f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hoochicken/datagrid/zipball/4244e2e3b9553891f5299b8805397cc00294007f",
+                "reference": "4244e2e3b9553891f5299b8805397cc00294007f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0"
+            },
+            "time": "2023-06-04T09:11:20+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Hoochicken\\Datagrid\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mareike Riegel",
+                    "email": "info@ql.de"
+                }
+            ],
+            "description": "datagrid",
+            "support": {
+                "issues": "https://github.com/hoochicken/datagrid/issues",
+                "source": "https://github.com/hoochicken/datagrid/tree/v1.0.2"
+            },
+            "install-path": "../hoochicken/datagrid"
+        }
+    ],
+    "dev": true,
+    "dev-package-names": []
+}
