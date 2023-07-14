@@ -39,14 +39,17 @@ class QldbtableHelper
             : $this->getDataByTable();
     }
 
-    public function alterData(array $data, array $columnsDataMap = []): array
+    public function alterData(array $data, array $columnsDataMap = [], string $defaultImage = ''): array
     {
         if (0 === count($data) || 0 === count($columnsDataMap)) {
             return [];
         }
-        array_walk($data, function (&$item) use ($columnsDataMap) {
+        array_walk($data, function (&$item) use ($columnsDataMap, $defaultImage) {
             foreach($columnsDataMap as $colname => $type){
                 if (QldbtableHelper::TYPE_IMAGE === $type && isset($item[$colname])) {
+                    if (empty($item[$colname]) && !empty($defaultImage)) {
+                        $item[$colname] = $defaultImage;
+                    }
                     $item[$colname] = sprintf(QldbtableHelper::HTML_IMG, $item[$colname]);
                 }
             }

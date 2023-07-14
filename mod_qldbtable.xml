@@ -10,7 +10,7 @@
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
 	<authorEmail>mareike.riegel@ql.de</authorEmail>
 	<authorUrl>ql.de</authorUrl>
-	<version>1.1.0</version>
+	<version>1.1.1</version>
 	<description>MOD_QLDBTABLE_XML_DESCRIPTION</description>
 	<updateservers>
         <server type="extension" priority="1" name="qldbtable - Updates">https://raw.githubusercontent.com/hoochicken/mod_qldbtable/main/_jupdate/mod_qldbtable.xml</server>
@@ -78,6 +78,9 @@
 					<option value="0">MOD_QLDBTABLE_IMAGECOLUMN_IMAGETAG_NO</option>
 				</field>
 				<field name="cardCssClass" label="MOD_QLDBTABLE_CARDCSSCLASS_LABEL" />
+				<field name="cardImageDefault" label="MOD_QLDBTABLE_CARDIMAGEDEFAULT_LABEL"
+					type="media" folder="images"
+				/>
 			</fieldset>
 
 
