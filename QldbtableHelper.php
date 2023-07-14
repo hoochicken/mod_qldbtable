@@ -23,6 +23,7 @@ class QldbtableHelper
     const TYPE_COLNAME = 'colname';
     const TYPE_LABEL = 'label';
     const TYPE_TYPE = 'type';
+    const PRFX_ENTRY = 'entry_';
     const TYPE_TEXT = 'text';
     const TYPE_IMAGE = 'image';
     const HTML_IMG = '<img src="%s" />';
@@ -53,17 +54,23 @@ class QldbtableHelper
         if (0 === count($data) || 0 === count($columnsDataMap)) {
             return [];
         }
-        array_walk($data, function (&$item) use ($columnsDataMap, $defaultImage) {
-            foreach ($columnsDataMap as $colname => $type) {
-                if (QldbtableHelper::TYPE_IMAGE === $type && isset($item[$colname])) {
-                    if (empty($item[$colname]) && !empty($defaultImage)) {
-                        $item[$colname] = $defaultImage;
-                    }
-                    $item[$colname] = sprintf(QldbtableHelper::HTML_IMG, $item[$colname]);
-                }
-            }
-        });
+        foreach ($data as $k => $item) {
+            $data[$k] = $this->setImageDefault($item, $columnsDataMap, $defaultImage);
+        }
         return $data;
+    }
+
+    public function setImageDefault(array $entry, array $columnsDataMap = [], string $defaultImage = ''): array
+    {
+        foreach ($columnsDataMap as $colname => $type) {
+            if (QldbtableHelper::TYPE_IMAGE === $type && isset($entry[$colname])) {
+                if (empty($entry[$colname]) && !empty($defaultImage)) {
+                    $entry[$colname] = $defaultImage;
+                }
+                $entry[$colname] = sprintf(QldbtableHelper::HTML_IMG, $entry[$colname]);
+            }
+        }
+        return $entry;
     }
 
     public function addLink(array $data, string $linkText, int $moduleId, string $ident = 'id'): array
@@ -94,6 +101,10 @@ class QldbtableHelper
             QldbtableHelper::GETPARAM_MODULEID, $moduleId,
             QldbtableHelper::GETPARAM_ENTRYID, $ident
         );
+
+        $regex = QldbtableHelper::GETPARAM_MODULEID . '|' . QldbtableHelper::GETPARAM_ENTRYID;
+        $baseUrl = preg_replace('/(&|\?)(' . $regex . ')=([0-9]*)/', '', $baseUrl);
+
         if (false !== strpos('?', $baseUrl)) {
             $link = $baseUrl . '&' . $link;
         } else {
@@ -102,28 +113,38 @@ class QldbtableHelper
         return sprintf(QldbtableHelper::HTML_AHREF, $link, $linkText);
     }
 
-    public function getColumnType(): array
+    public function getColumnType(string $prefix = ''): array
     {
-        return $this->getColumnInfo(QldbtableHelper::TYPE_TYPE);
+        return $this->getColumnInfo(QldbtableHelper::TYPE_TYPE, $prefix);
     }
 
-    public function getColumns()
+    public function getEntryColumnType(): array
     {
-        return $this->getColumnInfo(QldbtableHelper::TYPE_LABEL);
+        return $this->getColumnInfo(QldbtableHelper::TYPE_TYPE, QldbtableHelper::PRFX_ENTRY);
     }
 
-    public function getColumnInfo(string $type)
+    public function getColumnLabels(string $prefix = ''): array
     {
-        $structure = $this->getStructure();
+        return $this->getColumnInfo(QldbtableHelper::TYPE_LABEL, $prefix);
+    }
+
+    public function getEntryColumnLabels(): array
+    {
+        return $this->getColumnInfo(QldbtableHelper::TYPE_LABEL, QldbtableHelper::PRFX_ENTRY);
+    }
+
+    public function getColumnInfo(string $type, string $prefix = '')
+    {
+        $structure = $this->getStructure($prefix);
         array_walk($structure, function (&$item) use ($type) {
             $item = $item[$type];
         });
         return $structure;
     }
 
-    public function getStructure()
+    public function getStructure(string $prefix = ''): array
     {
-        $columnField = 'column%s';
+        $columnField = $prefix . 'column%s';
 
         $structure = [];
         for ($i = 1; $i <= QldbtableHelper::NUMBER_COLUMNS; $i++) {
@@ -208,5 +229,11 @@ class QldbtableHelper
 
         $this->db->setQuery($query);
         return $this->db->loadAssoc();
+    }
+
+    public function addImage(array $entry): array
+    {
+
+        return $entry;
     }
 }

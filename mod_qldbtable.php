@@ -25,6 +25,8 @@ $displayEntry = $helper->checkDisplayEntry($input);
 if ($displayEntry) {
     $ident = $input->getInt(QldbtableHelper::GETPARAM_ENTRYID, 0);
     $entry = $helper->getEntry($ident);
+    $entry = $helper->setImageDefault($entry, $helper->getEntryColumnType(), $params->get('entry_image_default', ''));
+    $entryColumns = $helper->getEntryColumnLabels();
 }
 
 if (QldbtableHelper::DISPLAY_CARDS === $params->get('display')) {
@@ -39,7 +41,7 @@ if (QldbtableHelper::DISPLAY_CARDS === $params->get('display')) {
     }
 }
 
-$columns = $helper->getColumns();
+$columns = $helper->getColumnLabels();
 $data = $helper->getData();
 if (QldbtableHelper::DISPLAY_TABLE === $params->get('display', QldbtableHelper::DISPLAY_DEFAULT)) {
     $data = $helper->alterData($data, $helper->getColumnType());
