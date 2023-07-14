@@ -20,8 +20,11 @@ $app = Factory::getApplication();
 $helper = new QldbtableHelper($module, $params, Factory::getContainer()->get(DatabaseInterface::class));
 $input = Factory::getApplication()->getInput();
 
-if ($helper->checkDisplayEntry($input)) {
+$displayEntry = $helper->checkDisplayEntry($input);
 
+if ($displayEntry) {
+    $ident = $input->getInt(QldbtableHelper::GETPARAM_ENTRYID, 0);
+    $entry = $helper->getEntry($ident);
 }
 
 if (QldbtableHelper::DISPLAY_CARDS === $params->get('display')) {

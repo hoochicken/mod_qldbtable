@@ -89,7 +89,7 @@
 					<option value="0">JHIDE</option>
 				</field>
 				<field name="linkText" label="MOD_QLDBTABLE_LINKTEXT_LABEL" default="click to view details" />
-				<field name="linkIdent" label="MOD_QLDBTABLE_LINKIDENT_LABEL" default="id" />
+				<field name="identColumn" label="MOD_QLDBTABLE_IDCOLUMN_LABEL" default="id" />
 			</fieldset>
 
 

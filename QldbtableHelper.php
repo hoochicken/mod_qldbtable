@@ -71,12 +71,12 @@ class QldbtableHelper
         if (0 === count($data)) {
             return [];
         }
-        $baseUrl = QldbtableHelper::getBaseUrl();$actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        $baseUrl = QldbtableHelper::getBaseUrl();
         array_walk($data, function (&$item) use ($baseUrl, $linkText, $moduleId, $ident) {
             $id = $item[$ident];
             $item[QldbtableHelper::QLDBTABLE] = [
-                QldbtableHelper::QLDBTABLE_ID => $id,
-                QldbtableHelper::QLDBTABLE_MODULEID => $moduleId,
+                QldbtableHelper::GETPARAM_ENTRYID => $id,
+                QldbtableHelper::GETPARAM_MODULEID => $moduleId,
                 QldbtableHelper::QLDBTABLE_LINK => QldbtableHelper::getLink($baseUrl, $linkText, $moduleId, $id),
             ];
         });
@@ -91,8 +91,8 @@ class QldbtableHelper
     public static function getLink(string $baseUrl, string $linkText, int $moduleId, int $ident): string
     {
         $link = sprintf('%s=%s&%s=%s',
-            QldbtableHelper::QLDBTABLE, $moduleId,
-            QldbtableHelper::QLDBTABLE . QldbtableHelper::QLDBTABLE_ID, $ident
+            QldbtableHelper::GETPARAM_MODULEID, $moduleId,
+            QldbtableHelper::GETPARAM_ENTRYID, $ident
         );
         if (false !== strpos('?', $baseUrl)) {
             $link = $baseUrl . '&' . $link;
@@ -156,9 +156,14 @@ class QldbtableHelper
 
     private function getDataByTable(): array
     {
+        $tablename = $this->params->get('tablename', '');
+        if (empty($tablename)) {
+            return [];
+        }
+
         $query = $this->db->getQuery(true);
         $query->select('*');
-        $query->from($this->params->get('tablename'));
+        $query->from($tablename);
 
         $condition = trim($this->params->get('conditions'));
         if (!empty($condition)) {
@@ -180,5 +185,28 @@ class QldbtableHelper
         return
             (int)$this->module->id === (int)$input->get(QldbtableHelper::GETPARAM_MODULEID)
             && is_numeric($input->get(QldbtableHelper::GETPARAM_ENTRYID));
+    }
+
+    public function getEntry(int $ident): ?array
+    {
+        $tablename = $this->params->get('tablename', '');
+        $identColumn = $this->params->get('identColumn', '');
+        if (empty($tablename) || empty($identColumn)) {
+            return [];
+        }
+
+        $query = $this->db->getQuery(true);
+        $query->select('*');
+        $query->from($tablename);
+        $where = sprintf('%s = %s', $identColumn, $query->escape($ident));
+        $query->where($where);
+
+        $condition = trim($this->params->get('conditions'));
+        if (!empty($condition)) {
+            $query->where($condition);
+        }
+
+        $this->db->setQuery($query);
+        return $this->db->loadAssoc();
     }
 }

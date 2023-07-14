@@ -20,10 +20,14 @@ $wa->useStyle('qldbtable');
 /* @var \Joomla\Registry\Registry $params */
 /* @var array $columns */
 /* @var array $data */
+/* @var bool $displayEntry */
 ?>
 
 <div class="qldbtable" id="module<?php echo $module->id ?>">
     <?php
+    if ($displayEntry) {
+        require ModuleHelper::getLayoutPath('mod_qldbtable', 'default_entry');
+    }
     if ($params->get('display', QldbtableHelper::DISPLAY_DEFAULT) === QldbtableHelper::DISPLAY_CARDS) {
         require ModuleHelper::getLayoutPath('mod_qldbtable', 'default_cards');
     } else {
