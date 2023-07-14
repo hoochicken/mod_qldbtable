@@ -7,6 +7,8 @@
  */
 
 // no direct access
+use Joomla\Input\Input;
+
 defined('_JEXEC') or die;
 
 class QldbtableHelper
@@ -24,6 +26,13 @@ class QldbtableHelper
     const TYPE_TEXT = 'text';
     const TYPE_IMAGE = 'image';
     const HTML_IMG = '<img src="%s" />';
+    const HTML_AHREF = '<a href="%s" />%s</a>';
+    const GETPARAM_MODULEID = 'modqldbtable';
+    const GETPARAM_ENTRYID = 'modqldbtableentryid';
+    const QLDBTABLE = 'qlbdtable';
+    const QLDBTABLE_ID = 'id';
+    const QLDBTABLE_MODULEID = 'module_id';
+    const QLDBTABLE_LINK = 'link';
 
     function __construct($module, $params, $db)
     {
@@ -45,7 +54,7 @@ class QldbtableHelper
             return [];
         }
         array_walk($data, function (&$item) use ($columnsDataMap, $defaultImage) {
-            foreach($columnsDataMap as $colname => $type){
+            foreach ($columnsDataMap as $colname => $type) {
                 if (QldbtableHelper::TYPE_IMAGE === $type && isset($item[$colname])) {
                     if (empty($item[$colname]) && !empty($defaultImage)) {
                         $item[$colname] = $defaultImage;
@@ -57,14 +66,50 @@ class QldbtableHelper
         return $data;
     }
 
+    public function addLink(array $data, string $linkText, int $moduleId, string $ident = 'id'): array
+    {
+        if (0 === count($data)) {
+            return [];
+        }
+        $baseUrl = QldbtableHelper::getBaseUrl();$actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        array_walk($data, function (&$item) use ($baseUrl, $linkText, $moduleId, $ident) {
+            $id = $item[$ident];
+            $item[QldbtableHelper::QLDBTABLE] = [
+                QldbtableHelper::QLDBTABLE_ID => $id,
+                QldbtableHelper::QLDBTABLE_MODULEID => $moduleId,
+                QldbtableHelper::QLDBTABLE_LINK => QldbtableHelper::getLink($baseUrl, $linkText, $moduleId, $id),
+            ];
+        });
+        return $data;
+    }
+
+    private static function getBaseUrl(): string
+    {
+        return (empty($_SERVER['HTTPS']) ? 'http' : 'https') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+    }
+
+    public static function getLink(string $baseUrl, string $linkText, int $moduleId, int $ident): string
+    {
+        $link = sprintf('%s=%s&%s=%s',
+            QldbtableHelper::QLDBTABLE, $moduleId,
+            QldbtableHelper::QLDBTABLE . QldbtableHelper::QLDBTABLE_ID, $ident
+        );
+        if (false !== strpos('?', $baseUrl)) {
+            $link = $baseUrl . '&' . $link;
+        } else {
+            $link = $baseUrl . '?' . $link;
+        }
+        return sprintf(QldbtableHelper::HTML_AHREF, $link, $linkText);
+    }
+
     public function getColumnType(): array
     {
-        return $this->getColumnInfo(self::TYPE_TYPE);
+        return $this->getColumnInfo(QldbtableHelper::TYPE_TYPE);
     }
 
     public function getColumns()
     {
-        return $this->getColumnInfo(self::TYPE_LABEL);
+        return $this->getColumnInfo(QldbtableHelper::TYPE_LABEL);
     }
 
     public function getColumnInfo(string $type)
@@ -81,7 +126,7 @@ class QldbtableHelper
         $columnField = 'column%s';
 
         $structure = [];
-        for ($i = 1; $i <= self::NUMBER_COLUMNS; $i++) {
+        for ($i = 1; $i <= QldbtableHelper::NUMBER_COLUMNS; $i++) {
 
             $fieldname = sprintf($columnField, $i);
             $column = $this->params->get($fieldname);
@@ -95,9 +140,9 @@ class QldbtableHelper
 
             $structure[$columnName] = [
                 'column' => $columnName,
-                self::TYPE_COLNAME => $columnName,
-                self::TYPE_TYPE => $columnType,
-                self::TYPE_LABEL => $columnLabel,
+                QldbtableHelper::TYPE_COLNAME => $columnName,
+                QldbtableHelper::TYPE_TYPE => $columnType,
+                QldbtableHelper::TYPE_LABEL => $columnLabel,
             ];
         }
         return $structure;
@@ -128,5 +173,12 @@ class QldbtableHelper
         $this->db->setQuery($query);
 
         return $this->db->loadAssocList();
+    }
+
+    public function checkDisplayEntry(Joomla\Input\Input $input): bool
+    {
+        return
+            (int)$this->module->id === (int)$input->get(QldbtableHelper::GETPARAM_MODULEID)
+            && is_numeric($input->get(QldbtableHelper::GETPARAM_ENTRYID));
     }
 }

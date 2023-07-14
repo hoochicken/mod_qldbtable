@@ -14,10 +14,15 @@ defined('_JEXEC') or die;
 require_once dirname(__FILE__).'/QldbtableHelper.php';
 require_once dirname(__FILE__).'/vendor/autoload.php';
 
-/** @var $module  */
-/** @var $params  */
+/** @var stdClass $module */
+/** @var \Joomla\Registry\Registry $params */
 $app = Factory::getApplication();
 $helper = new QldbtableHelper($module, $params, Factory::getContainer()->get(DatabaseInterface::class));
+$input = Factory::getApplication()->getInput();
+
+if ($helper->checkDisplayEntry($input)) {
+
+}
 
 if (QldbtableHelper::DISPLAY_CARDS === $params->get('display')) {
     $imageColumn = $params->get('cardImageColumn', '');
@@ -38,5 +43,6 @@ if (QldbtableHelper::DISPLAY_TABLE === $params->get('display', QldbtableHelper::
 } elseif (QldbtableHelper::DISPLAY_CARDS === $params->get('display', QldbtableHelper::DISPLAY_DEFAULT) && (bool)$params->get('cardImageTag', true)) {
     $data = $helper->alterData($data, [$params->get('cardImageColumn', '') => QldbtableHelper::TYPE_IMAGE], trim($params->get('cardImageDefault', '')));
 }
+$data = $helper->addLink($data, $params->get('linkText', 'Link'), $module->id, $params->get('linkIdent', 'id'));
 
 require JModuleHelper::getLayoutPath('mod_qldbtable', $params->get('layout', 'default'));

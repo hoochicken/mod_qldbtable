@@ -27,6 +27,9 @@ defined('_JEXEC') or die;
         <?php echo $entry[$imageColumn]; ?>
         <div class="card-body">
             <h5 class="card-title"><?php echo $entry[$labelColumn]; ?></h5>
+            <?php if ($params->get('linkDisplay', false)) : ?>
+            <?php echo $entry[QldbtableHelper::QLDBTABLE][QldbtableHelper::QLDBTABLE_LINK]; ?>
+            <?php endif; ?>
         </div>
     </div>
 <?php endforeach; ?>
