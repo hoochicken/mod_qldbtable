@@ -209,7 +209,7 @@ class QldbtableHelper
             && is_numeric($input->get(QldbtableHelper::GETPARAM_ENTRYID));
     }
 
-    public function getEntry(int $ident): ?array
+    public function getEntry(int $ident): array
     {
         $tablename = $this->params->get('tablename', '');
         $identColumn = $this->params->get('identColumn', '');
@@ -229,7 +229,7 @@ class QldbtableHelper
         }
 
         $this->db->setQuery($query);
-        return $this->db->loadAssoc();
+        return $this->db->loadAssoc() ?? [];
     }
 
     public function addImage(array $entry): array
