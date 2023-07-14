@@ -204,7 +204,8 @@ class QldbtableHelper
     public function checkDisplayEntry(Joomla\Input\Input $input): bool
     {
         return
-            (int)$this->module->id === (int)$input->get(QldbtableHelper::GETPARAM_MODULEID)
+            $this->params->get('entry_display', false)
+            && (int)$this->module->id === (int)$input->get(QldbtableHelper::GETPARAM_MODULEID)
             && is_numeric($input->get(QldbtableHelper::GETPARAM_ENTRYID));
     }
 
