@@ -105,7 +105,7 @@ class QldbtableHelper
         $regex = QldbtableHelper::GETPARAM_MODULEID . '|' . QldbtableHelper::GETPARAM_ENTRYID;
         $baseUrl = preg_replace('/(&|\?)(' . $regex . ')=([0-9]*)/', '', $baseUrl);
 
-        if (false !== strpos('?', $baseUrl)) {
+        if (false !== strpos($baseUrl, '?')) {
             $link = $baseUrl . '&' . $link;
         } else {
             $link = $baseUrl . '?' . $link;
