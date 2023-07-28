@@ -106,17 +106,17 @@ class QldbtableHelper
         return $data;
     }
 
-    public function flattenData(array $data, $typeMapping, bool $imageTag = false, array $columnsLinked = []): array
+    public function flattenData(array $data, $typeMapping, bool $entryDisplay = false, bool $imageTag = false, array $columnsLinked = []): array
     {
         if (0 === count($data)) {
             return $data;
         }
-        array_walk($data, function (&$entry) use ($typeMapping, $imageTag, $columnsLinked) {
+        array_walk($data, function (&$entry) use ($typeMapping, $entryDisplay, $imageTag, $columnsLinked) {
             foreach($typeMapping as $columnName => $type) {
                 if ($imageTag && static::TYPE_IMAGE === $type) {
                     $entry[$columnName] = $entry[QldbtableHelper::QLDBTABLE_TAGS][$columnName] ?? $entry[$columnName];
                 }
-                if (in_array($columnName, $columnsLinked)) {
+                if ($entryDisplay && in_array($columnName, $columnsLinked)) {
                     $url = $entry[static::QLDBTABLE][static::QLDBTABLE_URL];
                     $entry[$columnName] = static::generateHtmlLink($url, $entry[$columnName]);
                 }

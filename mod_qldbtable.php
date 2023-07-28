@@ -69,7 +69,7 @@ try {
     /* flatten data as a preparation for displaing it with qldbtable */
     $columnsLinked = explode(',', $params->get('columnsLinked', ''));
     array_walk($columnsLinked, function(&$item) {$item = trim($item);});
-    $dataFlattened = $helper->flattenData($data, $typeMapping, (bool)$params->get('imageTag', false), $columnsLinked);
+    $dataFlattened = $helper->flattenData($data, $typeMapping, (bool)$params->get('entry_display', false), (bool)$params->get('imageTag', false), $columnsLinked);
 
     /* finally display */
     require JModuleHelper::getLayoutPath('mod_qldbtable', $params->get('layout', 'default'));
