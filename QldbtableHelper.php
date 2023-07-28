@@ -104,12 +104,12 @@ class QldbtableHelper
 
     public function flattenData(array $data, $typeMapping, bool $imageTag = false, array $columnsLinked = []): array
     {
-        if (0 === count($data) || !$imageTag) {
+        if (0 === count($data)) {
             return $data;
         }
-        array_walk($data, function (&$entry) use ($typeMapping, $columnsLinked) {
+        array_walk($data, function (&$entry) use ($typeMapping, $imageTag, $columnsLinked) {
             foreach($typeMapping as $columnName => $type) {
-                if (static::TYPE_IMAGE === $type) {
+                if ($imageTag && static::TYPE_IMAGE === $type) {
                     $entry[$columnName] = $entry[QldbtableHelper::QLDBTABLE_TAGS][$columnName] ?? $entry[$columnName];
                 }
                 if (in_array($columnName, $columnsLinked)) {
