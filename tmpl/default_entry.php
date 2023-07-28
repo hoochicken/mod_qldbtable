@@ -8,6 +8,8 @@
 
 use Hoochicken\Datagrid\Datagrid;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+
 // no direct access
 defined('_JEXEC') or die;
 
@@ -16,6 +18,7 @@ defined('_JEXEC') or die;
 /* @var Joomla\Application\ $app */
 /* @var array $entryColumns */
 /* @var array $entry */
+/* @var string $originalUrl */
 
 ?>
 <div class="entry">
@@ -27,4 +30,7 @@ defined('_JEXEC') or die;
             <span class="value <?= $column ?>"><?= $entry[$column] ?? '' ?></span>
         </div>
     <?php endforeach;?>
+    <?php if (!empty($label)) : ?>
+        <a class="btn btn-primary" href="<?= $originalUrl ?>"><?= Text::_('MOD_QLDBTABLE_BACKTOLIST') ?></a>
+    <?php endif; ?>
 </div>

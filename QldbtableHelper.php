@@ -27,13 +27,16 @@ class QldbtableHelper
     const TYPE_TEXT = 'text';
     const TYPE_IMAGE = 'image';
     const HTML_IMG = '<img src="%s" />';
-    const HTML_AHREF = '<a href="%s" />%s</a>';
+    const HTML_AHREF = '<a class="btn btn-outline-secondary" href="%s" />%s</a>';
     const GETPARAM_MODULEID = 'modqldbtable';
     const GETPARAM_ENTRYID = 'modqldbtableentryid';
     const QLDBTABLE = 'qlbdtable';
+    const QLDBTABLE_TAGS = 'qlbdtable_tags';
     const QLDBTABLE_ID = 'id';
     const QLDBTABLE_MODULEID = 'module_id';
     const QLDBTABLE_LINK = 'link';
+    const QLDBTABLE_URL = 'url';
+    const URL_SCHEME = '%s://%s%s';
 
     function __construct($module, $params, $db)
     {
@@ -43,6 +46,15 @@ class QldbtableHelper
     }
 
     public function getData(): array
+    {
+        $data = $this->getDataRaw();
+        foreach ($data as $k => $entry) {
+            $data[$k] = $this->enrichEntryWithDefaults($entry);
+        }
+        return $data;
+    }
+
+    public function getDataRaw(): array
     {
         return $this->params->get('use_raw_query', false)
             ? $this->getDataByRawQuery()
@@ -63,12 +75,13 @@ class QldbtableHelper
     public function setImageDefault(array $entry, array $columnsDataMap = [], string $defaultImage = ''): array
     {
         foreach ($columnsDataMap as $colname => $type) {
-            if (QldbtableHelper::TYPE_IMAGE === $type && isset($entry[$colname])) {
-                if (empty($entry[$colname]) && !empty($defaultImage)) {
-                    $entry[$colname] = $defaultImage;
-                }
-                $entry[$colname] = sprintf(QldbtableHelper::HTML_IMG, $entry[$colname]);
+            if (QldbtableHelper::TYPE_IMAGE !== $type || !isset($entry[$colname])) {
+                continue;
             }
+            if (empty($entry[$colname]) && !empty($defaultImage)) {
+                $entry[$colname] = $defaultImage;
+            }
+            $entry[QldbtableHelper::QLDBTABLE_TAGS][$colname] = sprintf(QldbtableHelper::HTML_IMG, $entry[$colname]);
         }
         return $entry;
     }
@@ -81,11 +94,29 @@ class QldbtableHelper
         $baseUrl = QldbtableHelper::getBaseUrl();
         array_walk($data, function (&$item) use ($baseUrl, $linkText, $moduleId, $ident) {
             $id = $item[$ident];
-            $item[QldbtableHelper::QLDBTABLE] = [
-                QldbtableHelper::GETPARAM_ENTRYID => $id,
-                QldbtableHelper::GETPARAM_MODULEID => $moduleId,
-                QldbtableHelper::QLDBTABLE_LINK => QldbtableHelper::getLink($baseUrl, $linkText, $moduleId, $id),
-            ];
+            $item[QldbtableHelper::QLDBTABLE_TAGS][QldbtableHelper::QLDBTABLE_LINK] = QldbtableHelper::getLink($baseUrl, $linkText, $moduleId, $id);
+            $item[QldbtableHelper::QLDBTABLE][QldbtableHelper::GETPARAM_ENTRYID] = $id;
+            $item[QldbtableHelper::QLDBTABLE][QldbtableHelper::GETPARAM_MODULEID] = $moduleId;
+            $item[QldbtableHelper::QLDBTABLE][QldbtableHelper::QLDBTABLE_URL] = QldbtableHelper::getUrl($baseUrl, $moduleId, $id);
+        });
+        return $data;
+    }
+
+    public function flattenData(array $data, $typeMapping, bool $imageTag = false, array $columnsLinked = []): array
+    {
+        if (0 === count($data) || !$imageTag) {
+            return $data;
+        }
+        array_walk($data, function (&$entry) use ($typeMapping, $columnsLinked) {
+            foreach($typeMapping as $columnName => $type) {
+                if (static::TYPE_IMAGE === $type) {
+                    $entry[$columnName] = $entry[QldbtableHelper::QLDBTABLE_TAGS][$columnName] ?? $entry[$columnName];
+                }
+                if (in_array($columnName, $columnsLinked)) {
+                    $url = $entry[static::QLDBTABLE][static::QLDBTABLE_URL];
+                    $entry[$columnName] = static::generateHtmlLink($url, $entry[$columnName]);
+                }
+            }
         });
         return $data;
     }
@@ -96,6 +127,17 @@ class QldbtableHelper
     }
 
     public static function getLink(string $baseUrl, string $linkText, int $moduleId, int $ident): string
+    {
+        $url = static::getUrl($baseUrl, $moduleId, $ident);
+        return static::generateHtmlLink($url, $linkText);
+    }
+
+    public static function generateHtmlLink(string $url, string $linkText): string
+    {
+        return sprintf(QldbtableHelper::HTML_AHREF, $url, $linkText);
+    }
+
+    public static function getUrl(string $baseUrl, int $moduleId, int $ident): string
     {
         $link = sprintf('%s=%s&%s=%s',
             QldbtableHelper::GETPARAM_MODULEID, $moduleId,
@@ -110,7 +152,7 @@ class QldbtableHelper
         } else {
             $link = $baseUrl . '?' . $link;
         }
-        return sprintf(QldbtableHelper::HTML_AHREF, $link, $linkText);
+        return $link;
     }
 
     public function getColumnType(string $prefix = ''): array
@@ -211,6 +253,19 @@ class QldbtableHelper
 
     public function getEntry(int $ident): array
     {
+        $entry = $this->getEntryRaw($ident);
+        return $this->enrichEntryWithDefaults($entry);
+    }
+
+    public function enrichEntryWithDefaults(array $entry): array
+    {
+        $entry[QldbtableHelper::QLDBTABLE_TAGS] = [];
+        $entry[QldbtableHelper::QLDBTABLE] = [];
+        return $entry;
+    }
+
+    public function getEntryRaw(int $ident): array
+    {
         $tablename = $this->params->get('tablename', '');
         $identColumn = $this->params->get('identColumn', '');
         if (empty($tablename) || empty($identColumn)) {
@@ -234,7 +289,17 @@ class QldbtableHelper
 
     public function addImage(array $entry): array
     {
-
         return $entry;
+    }
+
+    public function getCurrentUrl(): string
+    {
+        return sprintf(static::URL_SCHEME, $_SERVER['REQUEST_SCHEME'], $_SERVER['HTTP_HOST'], $_SERVER['REQUEST_URI']);
+    }
+
+    public function getOriginalUrl(string $url): string
+    {
+        $regex = sprintf('/([?&])%s=([0-9]*)/', static::GETPARAM_ENTRYID);
+        return preg_replace($regex, '', $url);
     }
 }

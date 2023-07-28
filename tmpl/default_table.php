@@ -15,10 +15,11 @@ defined('_JEXEC') or die;
 /* @var \Joomla\Registry\Registry $params */
 /* @var array $columns */
 /* @var array $data */
+/* @var array $dataFlattened */
 ?>
 
 <?php
 $datagridtable = new Datagrid();
 $datagridtable->setTableClass('table table-striped');
-echo $datagridtable->getTable($data, $columns);
+echo $datagridtable->getTable($dataFlattened, $columns);
 ?>

@@ -21,14 +21,26 @@ try {
     $app = Factory::getApplication();
     $input = Factory::getApplication()->getInput();
     $helper = new QldbtableHelper($module, $params, Factory::getContainer()->get(DatabaseInterface::class));
+    $originalUrl = $helper->getOriginalUrl($helper->getCurrentUrl());
+    $typeMappingEntry = $helper->getEntryColumnType();
+    $typeMappingTable = $helper->getColumnType();
+    $typeMappingCards = [
+        $params->get('cardImageColumn', '') => QldbtableHelper::TYPE_IMAGE,
+        $params->get('cardLabelColumn', '') => QldbtableHelper::TYPE_TEXT,
+    ];
+
+    $typeMapping = $params->get('display', QldbtableHelper::DISPLAY_TABLE) === QldbtableHelper::DISPLAY_CARDS
+        ? $typeMappingCards
+        : $typeMappingTable;
 
     /* get data of single entry, if needed */
     $displayEntry = $helper->checkDisplayEntry($input);
-    if ($displayEntry) {
+    if (false && $displayEntry) {
         $ident = $input->getInt(QldbtableHelper::GETPARAM_ENTRYID, 0);
         $entry = $helper->getEntry($ident);
-        $entry = $helper->setImageDefault($entry, $helper->getEntryColumnType(), $params->get('entry_image_default', ''));
+        $entry = $helper->setImageDefault($entry, $typeMappingEntry, $params->get('entry_image_default', ''));
         $entryColumns = $helper->getEntryColumnLabels();
+        $entry = $helper->addImage($entry);
     }
 
     /* get data image for cards */
@@ -47,13 +59,10 @@ try {
     /* get data of rows */
     $columns = $helper->getColumnLabels();
     $data = $helper->getData();
-    if (QldbtableHelper::DISPLAY_TABLE === $params->get('display', QldbtableHelper::DISPLAY_DEFAULT)) {
-        $data = $helper->alterData($data, $helper->getColumnType());
-    } elseif (QldbtableHelper::DISPLAY_CARDS === $params->get('display', QldbtableHelper::DISPLAY_DEFAULT) && (bool)$params->get('cardImageTag', true)) {
-        $data = $helper->alterData($data, [$params->get('cardImageColumn', '') => QldbtableHelper::TYPE_IMAGE], trim($params->get('cardImageDefault', '')));
-    }
+    $data = $helper->alterData($data, $typeMapping);
     $data = $helper->addLink($data, $params->get('linkText', 'Link'), $module->id, $params->get('linkIdent', 'id'));
-
+    $columnsLinked = explode(',', $params->get('columnsLinked', ''));
+    $dataFlattened = $helper->flattenData($data, $typeMapping, (bool)$params->get('imageTag', false), $columnsLinked);
     require JModuleHelper::getLayoutPath('mod_qldbtable', $params->get('layout', 'default'));
 } catch (Exception $e) {
     $app->enqueueMessage(implode('<br >', [$e->getMessage(), $e->getFile(), $e->getLine()]));

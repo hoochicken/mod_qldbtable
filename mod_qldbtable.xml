@@ -55,6 +55,10 @@
 					<option value="table">MOD_QLDBTABLE_DISPLAY_TABLE</option>
 					<option value="cards">MOD_QLDBTABLE_DISPLAY_CARDS</option>
 				</field>
+				<field name="imageTag" type="radio" default="1" label="MOD_QLDBTABLE_IMAGECOLUMN_IMAGETAG_LABEL" description="MOD_QLDBTABLE_USERAWQUERY_DESC" class="btn-group btn-group-yesno">
+					<option value="1">MOD_QLDBTABLE_IMAGECOLUMN_IMAGETAG_YES</option>
+					<option value="0">MOD_QLDBTABLE_IMAGECOLUMN_IMAGETAG_NO</option>
+				</field>
 			</fieldset>
 
 			<fieldset name="table">
@@ -73,10 +77,6 @@
 			<fieldset name="cards">
 				<field name="cardLabelColumn" label="MOD_QLDBTABLE_LABELCOLUMN_LABEL" />
 				<field name="cardImageColumn" label="MOD_QLDBTABLE_IMAGECOLUMN_LABEL" />
-				<field name="cardImageTag" type="radio" default="1" label="MOD_QLDBTABLE_IMAGECOLUMN_IMAGETAG_LABEL" description="MOD_QLDBTABLE_USERAWQUERY_DESC" class="btn-group btn-group-yesno">
-					<option value="1">MOD_QLDBTABLE_IMAGECOLUMN_IMAGETAG_YES</option>
-					<option value="0">MOD_QLDBTABLE_IMAGECOLUMN_IMAGETAG_NO</option>
-				</field>
 				<field name="cardCssClass" label="MOD_QLDBTABLE_CARDCSSCLASS_LABEL" />
 				<field name="cardImageDefault" label="MOD_QLDBTABLE_IMAGEDEFAULT_LABEL"
 					type="media" folder="images"
@@ -90,6 +90,7 @@
 				</field>
 				<field name="linkText" label="MOD_QLDBTABLE_LINKTEXT_LABEL" default="click to view details" />
 				<field name="identColumn" label="MOD_QLDBTABLE_IDCOLUMN_LABEL" default="id" />
+				<field name="columnsLinked" label="MOD_QLDBTABLE_COLUMNSLINKED_LABEL" />
 			</fieldset>
 
 			<fieldset name="entry">
@@ -111,7 +112,6 @@
 					   type="media" folder="images"
 				/>
 			</fieldset>
-
 
 			<fieldset
 				name="advanced">
