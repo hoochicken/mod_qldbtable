@@ -24,6 +24,7 @@ try {
     $originalUrl = $helper->getOriginalUrl($helper->getCurrentUrl());
 
     /* initiate mappings of table, cards and entry */
+    $entryStructure = $helper->getEntryColumnType();
     $typeMappingEntry = $helper->getEntryColumnType();
     $typeMappingTable = $helper->getColumnType();
     $typeMappingCards = [

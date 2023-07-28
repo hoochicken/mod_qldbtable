@@ -81,10 +81,14 @@
 				<field name="cardImageDefault" label="MOD_QLDBTABLE_IMAGEDEFAULT_LABEL"
 					type="media" folder="images"
 				/>
+				<field name="cardLinkDisplay" type="radio" default="0" label="MOD_QLDBTABLE_DISPLAYLINK_LABEL" description="MOD_QLDBTABLE_DISPLAYLINK_DESC" class="btn-group btn-group-yesno">
+					<option value="1">JSHOW</option>
+					<option value="0">JHIDE</option>
+				</field>
 			</fieldset>
 
 			<fieldset name="entrybasic">
-				<field name="linkDisplay" type="radio" default="0" label="MOD_QLDBTABLE_DISPLAYLINK_LABEL" description="MOD_QLDBTABLE_DISPLAYLINK_DESC" class="btn-group btn-group-yesno">
+				<field name="entry_display" type="radio" default="0" label="MOD_QLDBTABLE_DISPLAYENTRY_LABEL" description="MOD_QLDBTABLE_DISPLAYENTRY_DESC" class="btn-group btn-group-yesno">
 					<option value="1">JSHOW</option>
 					<option value="0">JHIDE</option>
 				</field>
@@ -98,10 +102,6 @@
 			</fieldset>
 
 			<fieldset name="entry">
-				<field name="entry_display" type="radio" default="0" label="MOD_QLDBTABLE_DISPLAYENTRY_LABEL" description="MOD_QLDBTABLE_DISPLAYENTRY_DESC" class="btn-group btn-group-yesno">
-					<option value="1">JSHOW</option>
-					<option value="0">JHIDE</option>
-				</field>
 				<field name="entry_column1" type="qldbtablecolumn" label="MOD_QLDBTABLE_COLUMN1_LABEL" />
 				<field name="entry_column2" type="qldbtablecolumn" label="MOD_QLDBTABLE_COLUMN2_LABEL" />
 				<field name="entry_column3" type="qldbtablecolumn" label="MOD_QLDBTABLE_COLUMN3_LABEL" />
