@@ -27,7 +27,8 @@ class QldbtableHelper
     const TYPE_TEXT = 'text';
     const TYPE_IMAGE = 'image';
     const HTML_IMG = '<img src="%s" />';
-    const HTML_AHREF = '<a class="btn btn-outline-secondary" href="%s" />%s</a>';
+    const HTML_AHREF = '<a href="%s" />%s</a>';
+    const HTML_AHREF_BUTTON = '<a class="btn btn-outline-secondary" href="%s" />%s</a>';
     const GETPARAM_MODULEID = 'modqldbtable';
     const GETPARAM_ENTRYID = 'modqldbtableentryid';
     const QLDBTABLE = 'qlbdtable';
@@ -75,11 +76,14 @@ class QldbtableHelper
     public function setImageDefault(array $entry, array $columnsDataMap = [], string $defaultImage = ''): array
     {
         foreach ($columnsDataMap as $colname => $type) {
-            if (QldbtableHelper::TYPE_IMAGE !== $type || !isset($entry[$colname])) {
+            if (QldbtableHelper::TYPE_IMAGE !== $type) {
                 continue;
             }
             if (empty($entry[$colname]) && !empty($defaultImage)) {
                 $entry[$colname] = $defaultImage;
+            }
+            if (empty($entry[$colname])) {
+                continue;
             }
             $entry[QldbtableHelper::QLDBTABLE_TAGS][$colname] = static::generateHtmlImage($entry[$colname]);
         }
@@ -135,6 +139,11 @@ class QldbtableHelper
     public static function generateHtmlLink(string $url, string $linkText): string
     {
         return sprintf(QldbtableHelper::HTML_AHREF, $url, $linkText);
+    }
+
+    public static function generateHtmlButton(string $url, string $linkText): string
+    {
+        return sprintf(QldbtableHelper::HTML_AHREF_BUTTON, $url, $linkText);
     }
 
     public static function generateHtmlImage(string $imagePath): string
@@ -303,7 +312,7 @@ class QldbtableHelper
             return $entry;
         }
         foreach ($typeMapping as $columnName => $type) {
-            if (static::TYPE_IMAGE !== $type) {
+            if (static::TYPE_IMAGE !== $type || empty($entry[$columnName])) {
                 continue;
             }
             $entry[$columnName] = static::generateHtmlImage($entry[$columnName]);
