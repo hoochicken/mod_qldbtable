@@ -16,13 +16,13 @@ defined('_JEXEC') or die;
 /* @var stdClass $module */
 /* @var Joomla\Registry\Registry $params */
 /* @var Joomla\Application\ $app */
-/* @var array $entryColumns */
+/* @var array $typeMappingEntry */
 /* @var array $entry */
 /* @var string $originalUrl */
 
 ?>
 <div class="entry">
-    <?php foreach ($entryColumns as $column => $label) : ?>
+    <?php foreach ($typeMappingEntry as $column => $label) : ?>
         <div class="column">
             <?php if (!empty($label)) : ?>
                 <strong class="column <?= $column ?>"><?= $label ?></strong>

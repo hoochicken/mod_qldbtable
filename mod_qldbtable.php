@@ -22,25 +22,25 @@ try {
     $input = Factory::getApplication()->getInput();
     $helper = new QldbtableHelper($module, $params, Factory::getContainer()->get(DatabaseInterface::class));
     $originalUrl = $helper->getOriginalUrl($helper->getCurrentUrl());
+
+    /* initiate mappings of table, cards and entry */
     $typeMappingEntry = $helper->getEntryColumnType();
     $typeMappingTable = $helper->getColumnType();
     $typeMappingCards = [
         $params->get('cardImageColumn', '') => QldbtableHelper::TYPE_IMAGE,
         $params->get('cardLabelColumn', '') => QldbtableHelper::TYPE_TEXT,
     ];
-
     $typeMapping = $params->get('display', QldbtableHelper::DISPLAY_TABLE) === QldbtableHelper::DISPLAY_CARDS
         ? $typeMappingCards
         : $typeMappingTable;
 
     /* get data of single entry, if needed */
     $displayEntry = $helper->checkDisplayEntry($input);
-    if (false && $displayEntry) {
+    if ($displayEntry) {
         $ident = $input->getInt(QldbtableHelper::GETPARAM_ENTRYID, 0);
         $entry = $helper->getEntry($ident);
         $entry = $helper->setImageDefault($entry, $typeMappingEntry, $params->get('entry_image_default', ''));
-        $entryColumns = $helper->getEntryColumnLabels();
-        $entry = $helper->addImage($entry);
+        $entry = $helper->addImage($entry, $typeMappingEntry, $params->get('entryImageTag', ''));
     }
 
     /* get data image for cards */
@@ -61,8 +61,13 @@ try {
     $data = $helper->getData();
     $data = $helper->alterData($data, $typeMapping);
     $data = $helper->addLink($data, $params->get('linkText', 'Link'), $module->id, $params->get('linkIdent', 'id'));
+
+    /* flatten data as a preparation for displaing it with qldbtable */
     $columnsLinked = explode(',', $params->get('columnsLinked', ''));
+    array_walk($columnsLinked, function(&$item) {$item = trim($item);});
     $dataFlattened = $helper->flattenData($data, $typeMapping, (bool)$params->get('imageTag', false), $columnsLinked);
+
+    /* finally display */
     require JModuleHelper::getLayoutPath('mod_qldbtable', $params->get('layout', 'default'));
 } catch (Exception $e) {
     $app->enqueueMessage(implode('<br >', [$e->getMessage(), $e->getFile(), $e->getLine()]));

@@ -81,7 +81,7 @@ class QldbtableHelper
             if (empty($entry[$colname]) && !empty($defaultImage)) {
                 $entry[$colname] = $defaultImage;
             }
-            $entry[QldbtableHelper::QLDBTABLE_TAGS][$colname] = sprintf(QldbtableHelper::HTML_IMG, $entry[$colname]);
+            $entry[QldbtableHelper::QLDBTABLE_TAGS][$colname] = static::generateHtmlImage($entry[$colname]);
         }
         return $entry;
     }
@@ -135,6 +135,11 @@ class QldbtableHelper
     public static function generateHtmlLink(string $url, string $linkText): string
     {
         return sprintf(QldbtableHelper::HTML_AHREF, $url, $linkText);
+    }
+
+    public static function generateHtmlImage(string $imagePath): string
+    {
+        return sprintf(QldbtableHelper::HTML_IMG, $imagePath);
     }
 
     public static function getUrl(string $baseUrl, int $moduleId, int $ident): string
@@ -287,8 +292,17 @@ class QldbtableHelper
         return $this->db->loadAssoc() ?? [];
     }
 
-    public function addImage(array $entry): array
+    public function addImage(array $entry, array $typeMapping, bool $entryImageTag): array
     {
+        if (!$entryImageTag) {
+            return $entry;
+        }
+        foreach ($typeMapping as $columnName => $type) {
+            if (static::TYPE_IMAGE !== $type) {
+                continue;
+            }
+            $entry[$columnName] = static::generateHtmlImage($entry[$columnName]);
+        }
         return $entry;
     }
 
