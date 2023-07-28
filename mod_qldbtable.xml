@@ -10,7 +10,7 @@
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
 	<authorEmail>mareike.riegel@ql.de</authorEmail>
 	<authorUrl>ql.de</authorUrl>
-	<version>1.2.0</version>
+	<version>1.2.1</version>
 	<description>MOD_QLDBTABLE_XML_DESCRIPTION</description>
 	<updateservers>
         <server type="extension" priority="1" name="qldbtable - Updates">https://raw.githubusercontent.com/hoochicken/mod_qldbtable/main/_jupdate/mod_qldbtable.xml</server>
@@ -100,6 +100,10 @@
 					<option value="0">MOD_QLDBTABLE_IMAGECOLUMN_IMAGETAG_NO</option>
 				</field>
 				<field name="list_display" type="radio" default="0" label="MOD_QLDBTABLE_DISPLAYLIST_LABEL" class="btn-group btn-group-yesno">
+					<option value="1">JSHOW</option>
+					<option value="0">JHIDE</option>
+				</field>
+				<field name="back_to_list" type="radio" default="0" label="MOD_QLDBTABLE_BACKTOLIST_LABEL" class="btn-group btn-group-yesno">
 					<option value="1">JSHOW</option>
 					<option value="0">JHIDE</option>
 				</field>

@@ -30,7 +30,7 @@ defined('_JEXEC') or die;
             <span class="value <?= $column ?>"><?= $entry[$column] ?? '' ?></span>
         </div>
     <?php endforeach;?>
-    <?php if (!empty($label)) : ?>
+    <?php if ($displayBackToList) : ?>
         <a class="btn btn-primary" href="<?= $originalUrl ?>"><?= Text::_('MOD_QLDBTABLE_BACKTOLIST') ?></a>
     <?php endif; ?>
 </div>
