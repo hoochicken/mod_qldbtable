@@ -44,6 +44,8 @@ try {
         $entry = $helper->addImage($entry, $typeMappingEntry, $params->get('entryImageTag', ''));
     }
 
+    $displayList = $displayEntry && $params->get('list_display', true);
+
     /* get data image for cards */
     if (QldbtableHelper::DISPLAY_CARDS === $params->get('display')) {
         $imageColumn = $params->get('cardImageColumn', '');

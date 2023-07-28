@@ -21,6 +21,7 @@ $wa->useStyle('qldbtable');
 /* @var array $columns */
 /* @var array $data */
 /* @var bool $displayEntry */
+/* @var bool $displayList */
 ?>
 
 <div class="qldbtable" id="module<?php echo $module->id ?>">
@@ -28,9 +29,9 @@ $wa->useStyle('qldbtable');
     if ($displayEntry) {
         require ModuleHelper::getLayoutPath('mod_qldbtable', 'default_entry');
     }
-    if ($params->get('display', QldbtableHelper::DISPLAY_DEFAULT) === QldbtableHelper::DISPLAY_CARDS) {
+    if ($displayList && $params->get('display', QldbtableHelper::DISPLAY_DEFAULT) === QldbtableHelper::DISPLAY_CARDS) {
         require ModuleHelper::getLayoutPath('mod_qldbtable', 'default_cards');
-    } else {
+    } elseif ($displayList) {
         require ModuleHelper::getLayoutPath('mod_qldbtable', 'default_table');
     }
     ?>
