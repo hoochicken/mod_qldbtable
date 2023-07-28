@@ -165,12 +165,12 @@ class QldbtableHelper
         return $this->getColumnInfo(QldbtableHelper::TYPE_TYPE, $prefix);
     }
 
-    public function getEntryColumnType(): array
+    public function getEntryStructure(): array
     {
         return $this->getStructure(QldbtableHelper::PRFX_ENTRY);
     }
 
-    public function getEntryStructure(): array
+    public function getEntryColumnType(): array
     {
         return $this->getColumnInfo(QldbtableHelper::TYPE_TYPE, QldbtableHelper::PRFX_ENTRY);
     }
