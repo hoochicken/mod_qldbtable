@@ -35,14 +35,22 @@ defined('_JEXEC') or die;
         </div>
     <?php endforeach;?>
     <div class="navigation d-flex justify-content-between">
-    <?php if ($displayNavigation && !is_null($prev)) : ?>
-        <a class="btn btn-secondary" href="<?= $next[QldbtableHelper::QLDBTABLE][QldbtableHelper::QLDBTABLE_URL] ?>"><?= Text::_('MOD_QLDBTABLE_PREV') ?></a>
+    <?php if ($displayNavigation) : ?>
+        <?php if (is_null($prev)) : ?>
+            <span class="btn btn-secondary disabled"><?= Text::_('MOD_QLDBTABLE_PREV') ?></span>
+        <?php else : ?>
+            <a class="btn btn-secondary" href="<?= $prev[QldbtableHelper::QLDBTABLE][QldbtableHelper::QLDBTABLE_URL] ?>"><?= Text::_('MOD_QLDBTABLE_PREV') ?></a>
+        <?php endif; ?>
     <?php endif; ?>
     <?php if ($displayBackToList) : ?>
         <a class="btn btn-secondary" href="<?= $originalUrl ?>"><?= Text::_('MOD_QLDBTABLE_BACKTOLIST') ?></a>
     <?php endif; ?>
-    <?php if ($displayNavigation && !is_null($next)) : ?>
-        <a class="btn btn-secondary" href="<?= $next[QldbtableHelper::QLDBTABLE][QldbtableHelper::QLDBTABLE_URL] ?>"><?= Text::_('MOD_QLDBTABLE_NEXT') ?></a>
+    <?php if ($displayNavigation) : ?>
+        <?php if (is_null($next)) : ?>
+            <span class="btn btn-secondary disabled"><?= Text::_('MOD_QLDBTABLE_PREV') ?></span>
+        <?php else : ?>
+            <a class="btn btn-secondary" href="<?= $next[QldbtableHelper::QLDBTABLE][QldbtableHelper::QLDBTABLE_URL] ?>"><?= Text::_('MOD_QLDBTABLE_NEXT') ?></a>
+        <?php endif; ?>
     <?php endif; ?>
     </div>
 </div>

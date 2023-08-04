@@ -135,38 +135,15 @@ class QldbtableHelper
         return $entry;
     }
 
-    public function addTagsMultiple(array $data, string $linkText, int $moduleId, string $baseUrl = '', string $ident = 'id'): array
+    public function addTags(array $entry, string $linkText, int $moduleId, string $baseUrl = '', string $identColumn = 'id'): array
     {
-        if (0 === count($data)) {
-            return [];
-        }
-        foreach ($data as $k => $entry) {
-            $data[$k] = $this->addTags($entry, $linkText, $moduleId, $baseUrl, $ident);
-        }
-        return $data;
-    }
-
-    public function addTags(array $entry, string $linkText, int $moduleId, string $baseUrl = '', string $ident = 'id'): array
-    {
-        $id = $entry[$ident];
+        $id = $entry[$identColumn];
         $url = QldbtableHelper::getUrl($baseUrl, $moduleId, $id);
         $entry[QldbtableHelper::QLDBTABLE_TAGS][QldbtableHelper::QLDBTABLE_LINK] = QldbtableHelper::getLink($baseUrl, $linkText, $moduleId, $id);
         $entry[QldbtableHelper::QLDBTABLE][QldbtableHelper::GETPARAM_ENTRYID] = $id;
         $entry[QldbtableHelper::QLDBTABLE][QldbtableHelper::GETPARAM_MODULEID] = $moduleId;
         $entry[QldbtableHelper::QLDBTABLE][QldbtableHelper::QLDBTABLE_URL] = $url;
         return $entry;
-    }
-
-    public function flattenDataMultiple(array $data, array $typeMapping, bool $entryDisplay = false, bool $imageTag = false, array $columnsLinked = []): array
-    {
-        if (0 === count($data)) {
-            return $data;
-        }
-
-        foreach ($data as $k => $entry) {
-            $data[$k] = $this->flattenData($entry, $typeMapping, $entryDisplay, $imageTag, $columnsLinked);
-        }
-        return $data;
     }
 
     public function flattenData(array $entry, array $typeMapping, bool $entryDisplay = false, bool $imageTag = false, array $columnsLinked = []): array
@@ -188,7 +165,7 @@ class QldbtableHelper
         return (empty($_SERVER['HTTPS']) ? 'http' : 'https') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
     }
 
-    public static function getLink(string $baseUrl, string $linkText, int $moduleId, int $ident): string
+    public static function getLink(string $baseUrl, string $linkText, int $moduleId, $ident): string
     {
         $url = static::getUrl($baseUrl, $moduleId, $ident);
         return static::generateHtmlLink($url, $linkText);
@@ -209,7 +186,7 @@ class QldbtableHelper
         return sprintf(QldbtableHelper::HTML_IMG, $imagePath);
     }
 
-    public static function getUrl(string $baseUrl, int $moduleId, int $ident): string
+    public static function getUrl(string $baseUrl, int $moduleId, $ident): string
     {
         $link = sprintf('%s=%s&%s=%s',
             QldbtableHelper::GETPARAM_MODULEID, $moduleId,
@@ -328,13 +305,13 @@ class QldbtableHelper
             && is_numeric($input->get(QldbtableHelper::GETPARAM_ENTRYID));
     }
 
-    public function getEntry(int $ident): array
+    public function getEntry($ident): array
     {
         $entry = $this->getEntryRaw($ident);
         return $this->enrichEntryWithDefaults($entry);
     }
 
-    public function getEntryRaw(int $ident): array
+    public function getEntryRaw($ident): array
     {
         $tablename = $this->params->get('tablename', '');
         $identColumn = $this->params->get('identColumn', '');

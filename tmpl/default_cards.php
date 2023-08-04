@@ -24,18 +24,18 @@ defined('_JEXEC') or die;
 <?php foreach ($data as $k => $entry) : ?>
     <?php $entryLink = $entry[QldbtableHelper::QLDBTABLE][QldbtableHelper::QLDBTABLE_URL] ?? ''; ?>
     <div class="card <?php echo $cardCssClass; ?>">
-        <?php if ($params->get('imageLinked', false) && !empty($entryLink)) : ?>
+        <?php if ($params->get('cardLinkDisplay', false) && !empty($entryLink)) : ?>
             <a href="<?= $entryLink ?>">
         <?php endif; ?>
         <?php echo $entry[$imageColumn]; ?>
-        <?php if ($params->get('imageLinked', false)) : ?>
+        <?php if ($params->get('cardLinkDisplay', false)) : ?>
             </a>
         <?php endif; ?>
 
         <div class="card-body">
             <h5 class="card-title"><?php echo $entry[$labelColumn]; ?></h5>
             <?php if ($params->get('cardLinkDisplay', false)) : ?>
-            <?php echo $entry[QldbtableHelper::QLDBTABLE][QldbtableHelper::QLDBTABLE_LINK]; ?>
+            <?php echo $entry[QldbtableHelper::QLDBTABLE_TAGS][QldbtableHelper::QLDBTABLE_LINK]; ?>
             <?php endif; ?>
         </div>
     </div>

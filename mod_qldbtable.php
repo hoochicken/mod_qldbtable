@@ -8,6 +8,7 @@
 
 // no direct access
 use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
 use Joomla\Database\DatabaseInterface;
 
 defined('_JEXEC') or die;
@@ -72,7 +73,7 @@ try {
     $data = $helper->getData();
     foreach ($data as $k => $item) {
         $item = $helper->setImage($item, $typeMappingEntry, $params->get('entry_image_default', ''));
-        $item = $helper->addTags($item, $ident, $module->id, $baseUrl, $params->get('linkIdent', 'id'));
+        $item = $helper->addTags($item, Text::_($params->get('label_more', 'MOD_QLDBTABLE_MORE')), $module->id, $baseUrl, $params->get('linkIdent', 'id'));
         $item = $helper->flattenData($item, $typeMapping, (bool)$params->get('entry_display', false), (bool)$params->get('imageTag', false), $columnsLinked);
         $data[$k] = $item;
     }
