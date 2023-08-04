@@ -19,6 +19,7 @@ defined('_JEXEC') or die;
 /* @var array $entryStructure */
 /* @var array $entry */
 /* @var string $originalUrl */
+/* @var bool $displayBackToList */
 
 ?>
 <div class="entry">

@@ -24,6 +24,7 @@ try {
     $originalUrl = $helper->getOriginalUrl($helper->getCurrentUrl());
     $baseUrl = QldbtableHelper::getBaseUrl();
     $columnsLinked = explode(',', $params->get('columnsLinked', ''));
+    $entry = [];
     array_walk($columnsLinked, function(&$item) {$item = trim($item);});
 
     /* initiate mappings of table, cards and entry */
@@ -74,6 +75,9 @@ try {
         $item = $helper->flattenData($item, $typeMapping, (bool)$params->get('entry_display', false), (bool)$params->get('imageTag', false), $columnsLinked);
         $data[$k] = $item;
     }
+
+    $prev = $helper->getPrev($data, $entry, $params->get('identColumn', 'id'));
+    $next = $helper->getNext($data, $entry, $params->get('identColumn', 'id'));
 
     /* finally display */
     require JModuleHelper::getLayoutPath('mod_qldbtable', $params->get('layout', 'default'));

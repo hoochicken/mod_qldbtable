@@ -56,6 +56,55 @@ class QldbtableHelper
         return $data;
     }
 
+    public function getIdentFromEntry(array $entry, string $identColumn)
+    {
+        return $entry[$identColumn] ?? null;
+    }
+
+    public function getEntryByAttribute(array $data, string $attrColumn, string $value): array
+    {
+        $entries = array_filter($data, function($entry) use ($attrColumn, $value) {
+            return $entry[$attrColumn] == $value;
+        });
+        return is_array($entries) && 0 < count($entries) ? array_pop($entries) : [];
+    }
+
+    public function getPrev(array $data, ?array $entry, string $identColumn): ?array
+    {
+        $keyPrev = null;
+        $identEntry = $this->getIdentFromEntry($entry, $identColumn);
+        foreach ($data as $key => $item) {
+            $identTmp = $this->getIdentFromEntry($item, $identColumn);
+            if ($identTmp == $identEntry) {
+                break;
+            }
+            $keyPrev = $key;
+        }
+        return is_null($keyPrev)
+            ? null
+            : $data[$keyPrev] ?? null;
+    }
+
+    public function getNext(array $data, ?array $entry, string $identColumn): ?array
+    {
+        $keyNext = null;
+        $next = false;
+        $identEntry = $this->getIdentFromEntry($entry, $identColumn);
+        foreach ($data as $key => $item) {
+            $identTmp = $this->getIdentFromEntry($item, $identColumn);
+            if ($next) {
+                $keyNext = $key;
+                break;
+            }
+            if ($identTmp == $identEntry) {
+                $next = true;
+            }
+        }
+        return is_null($keyNext)
+            ? null
+            : $data[$keyNext] ?? null;
+    }
+
     public function getDataRaw(): array
     {
         return $this->params->get('use_raw_query', false)
