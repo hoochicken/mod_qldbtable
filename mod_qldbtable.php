@@ -73,6 +73,13 @@ try {
     /* get data of rows */
     $columns = $helper->getColumnLabels();
     $data = $helper->getData();
+
+    if (file_exists(__DIR__ . '/php/classes/QlDatabasetableDataFilter.php')) {
+        require_once __DIR__ . '/php/classes/QlDatabasetableDataFilter.php';
+        $filter = new QlDatabasetableDataFilter($module, $params, Factory::getContainer()->get(DatabaseInterface::class));
+        $data = $filter->filter($data);
+    }
+
     foreach ($data as $k => $item) {
         $item = $helper->setImage($item, $typeMappingEntry, $params->get('entry_image_default', ''));
         $item = $helper->addTags($item, Text::_($params->get('label_more', '')), $module->id, $baseUrl, $params->get('linkIdent', 'id'));
