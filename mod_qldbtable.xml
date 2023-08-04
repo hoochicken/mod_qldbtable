@@ -55,6 +55,14 @@
 					<option value="table">MOD_QLDBTABLE_DISPLAY_TABLE</option>
 					<option value="cards">MOD_QLDBTABLE_DISPLAY_CARDS</option>
 				</field>
+				<field name="entry_display" type="radio" default="0" label="MOD_QLDBTABLE_DISPLAYENTRY_LABEL" description="MOD_QLDBTABLE_DISPLAYENTRY_DESC" class="btn-group btn-group-yesno">
+					<option value="1">JSHOW</option>
+					<option value="0">JHIDE</option>
+				</field>
+				<field name="list_display" type="radio" default="0" label="MOD_QLDBTABLE_DISPLAYLIST_LABEL" class="btn-group btn-group-yesno">
+					<option value="1">JSHOW</option>
+					<option value="0">JHIDE</option>
+				</field>
 				<field name="imageTag" type="radio" default="1" label="MOD_QLDBTABLE_IMAGECOLUMN_IMAGETAG_LABEL" description="MOD_QLDBTABLE_USERAWQUERY_DESC" class="btn-group btn-group-yesno">
 					<option value="1">MOD_QLDBTABLE_IMAGECOLUMN_IMAGETAG_YES</option>
 					<option value="0">MOD_QLDBTABLE_IMAGECOLUMN_IMAGETAG_NO</option>
@@ -88,21 +96,12 @@
 			</fieldset>
 
 			<fieldset name="entrybasic">
-				<field name="entry_display" type="radio" default="0" label="MOD_QLDBTABLE_DISPLAYENTRY_LABEL" description="MOD_QLDBTABLE_DISPLAYENTRY_DESC" class="btn-group btn-group-yesno">
-					<option value="1">JSHOW</option>
-					<option value="0">JHIDE</option>
-				</field>
-				<field name="linkText" label="MOD_QLDBTABLE_LINKTEXT_LABEL" default="click to view details" />
 				<field name="identColumn" label="MOD_QLDBTABLE_IDCOLUMN_LABEL" default="id" />
 				<field name="columnsLinked" label="MOD_QLDBTABLE_COLUMNSLINKED_LABEL" />
-				<field name="label_more" label="MOD_QLDBTABLE_MORE_LABEL" default="MOD_QLDBTABLE_MORE" />
+				<field name="label_more" label="MOD_QLDBTABLE_MORE_LABEL" default="" />
 				<field name="entryImageTag" type="radio" default="1" label="MOD_QLDBTABLE_IMAGECOLUMN_IMAGETAG_LABEL" description="MOD_QLDBTABLE_USERAWQUERY_DESC" class="btn-group btn-group-yesno">
 					<option value="1">MOD_QLDBTABLE_IMAGECOLUMN_IMAGETAG_YES</option>
 					<option value="0">MOD_QLDBTABLE_IMAGECOLUMN_IMAGETAG_NO</option>
-				</field>
-				<field name="list_display" type="radio" default="0" label="MOD_QLDBTABLE_DISPLAYLIST_LABEL" class="btn-group btn-group-yesno">
-					<option value="1">JSHOW</option>
-					<option value="0">JHIDE</option>
 				</field>
 				<field name="back_to_list" type="radio" default="0" label="MOD_QLDBTABLE_BACKTOLIST_LABEL" class="btn-group btn-group-yesno">
 					<option value="1">JSHOW</option>

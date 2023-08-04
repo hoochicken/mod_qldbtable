@@ -19,12 +19,13 @@ defined('_JEXEC') or die;
 /* @var string $imageColumn */
 /* @var string $labelColumn */
 /* @var string $cardCssClass */
+/* @var bool $cardLinkDisplay */
 ?>
 <div class="card-group">
 <?php foreach ($data as $k => $entry) : ?>
     <?php $entryLink = $entry[QldbtableHelper::QLDBTABLE][QldbtableHelper::QLDBTABLE_URL] ?? ''; ?>
     <div class="card <?php echo $cardCssClass; ?>">
-        <?php if ($params->get('cardLinkDisplay', false) && !empty($entryLink)) : ?>
+        <?php if ($cardLinkDisplay && !empty($entryLink)) : ?>
             <a href="<?= $entryLink ?>">
         <?php endif; ?>
         <?php echo $entry[$imageColumn]; ?>
@@ -34,8 +35,8 @@ defined('_JEXEC') or die;
 
         <div class="card-body">
             <h5 class="card-title"><?php echo $entry[$labelColumn]; ?></h5>
-            <?php if ($params->get('cardLinkDisplay', false)) : ?>
-            <?php echo $entry[QldbtableHelper::QLDBTABLE_TAGS][QldbtableHelper::QLDBTABLE_LINK]; ?>
+            <?php if ($cardLinkDisplay && !empty($label)) : ?>
+                <a href="<?= $entry[QldbtableHelper::QLDBTABLE_TAGS][QldbtableHelper::QLDBTABLE_URL] ?>"><?= $label ?></a>
             <?php endif; ?>
         </div>
     </div>
