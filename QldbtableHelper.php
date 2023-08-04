@@ -62,48 +62,50 @@ class QldbtableHelper
             : $this->getDataByTable();
     }
 
-    public function alterData(array $data, array $columnsDataMap = [], string $defaultImage = ''): array
+    public function setImageMultiple(array $data, array $columnsDataMap = [], string $defaultImage = ''): array
     {
         if (0 === count($data) || 0 === count($columnsDataMap)) {
-            return [];
+            return $data;
         }
         foreach ($data as $k => $item) {
-            $data[$k] = $this->setImageDefault($item, $columnsDataMap, $defaultImage);
+            $data[$k] = $this->setImage($item, $columnsDataMap, $defaultImage);
         }
         return $data;
     }
 
-    public function setImageDefault(array $entry, array $columnsDataMap = [], string $defaultImage = ''): array
+    public function setImage(array $entry, array $columnsDataMap = [], string $defaultImage = ''): array
     {
         foreach ($columnsDataMap as $colname => $type) {
-            if (QldbtableHelper::TYPE_IMAGE !== $type) {
+            if (QldbtableHelper::TYPE_IMAGE !== $type || (empty($entry[$colname]) && empty($defaultImage))) {
                 continue;
             }
-            if (empty($entry[$colname]) && !empty($defaultImage)) {
-                $entry[$colname] = $defaultImage;
-            }
-            if (empty($entry[$colname])) {
-                continue;
-            }
+            $entry[$colname] = empty($entry[$colname]) ? $defaultImage : $entry[$colname];
             $entry[QldbtableHelper::QLDBTABLE_TAGS][$colname] = static::generateHtmlImage($entry[$colname]);
         }
         return $entry;
     }
 
-    public function addLink(array $data, string $linkText, int $moduleId, string $ident = 'id'): array
+    public function addLinkMultiple(array $data, string $linkText, int $moduleId, string $ident = 'id'): array
     {
         if (0 === count($data)) {
             return [];
         }
         $baseUrl = QldbtableHelper::getBaseUrl();
-        array_walk($data, function (&$item) use ($baseUrl, $linkText, $moduleId, $ident) {
-            $id = $item[$ident];
-            $item[QldbtableHelper::QLDBTABLE_TAGS][QldbtableHelper::QLDBTABLE_LINK] = QldbtableHelper::getLink($baseUrl, $linkText, $moduleId, $id);
-            $item[QldbtableHelper::QLDBTABLE][QldbtableHelper::GETPARAM_ENTRYID] = $id;
-            $item[QldbtableHelper::QLDBTABLE][QldbtableHelper::GETPARAM_MODULEID] = $moduleId;
-            $item[QldbtableHelper::QLDBTABLE][QldbtableHelper::QLDBTABLE_URL] = QldbtableHelper::getUrl($baseUrl, $moduleId, $id);
-        });
+        foreach ($data as $k => $entry) {
+            $data[$k] = $this->addLink($entry, $linkText, $moduleId, $baseUrl, $ident);
+        }
         return $data;
+    }
+
+    public function addLink(array $entry, string $linkText, int $moduleId, string $baseUrl = '', string $ident = 'id'): array
+    {
+        $id = $entry[$ident];
+        $url = QldbtableHelper::getUrl($baseUrl, $moduleId, $id);
+        $entry[QldbtableHelper::QLDBTABLE_TAGS][QldbtableHelper::QLDBTABLE_LINK] = QldbtableHelper::getLink($baseUrl, $linkText, $moduleId, $id);
+        $entry[QldbtableHelper::QLDBTABLE][QldbtableHelper::GETPARAM_ENTRYID] = $id;
+        $entry[QldbtableHelper::QLDBTABLE][QldbtableHelper::GETPARAM_MODULEID] = $moduleId;
+        $entry[QldbtableHelper::QLDBTABLE][QldbtableHelper::QLDBTABLE_URL] = $url;
+        return $entry;
     }
 
     public function flattenData(array $data, $typeMapping, bool $entryDisplay = false, bool $imageTag = false, array $columnsLinked = []): array
@@ -304,20 +306,6 @@ class QldbtableHelper
 
         $this->db->setQuery($query);
         return $this->db->loadAssoc() ?? [];
-    }
-
-    public function addImage(array $entry, array $typeMapping, bool $entryImageTag): array
-    {
-        if (!$entryImageTag) {
-            return $entry;
-        }
-        foreach ($typeMapping as $columnName => $type) {
-            if (static::TYPE_IMAGE !== $type || empty($entry[$columnName])) {
-                continue;
-            }
-            $entry[$columnName] = static::generateHtmlImage($entry[$columnName]);
-        }
-        return $entry;
     }
 
     public function getCurrentUrl(): string

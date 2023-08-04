@@ -40,8 +40,7 @@ try {
     if ($displayEntry) {
         $ident = $input->getInt(QldbtableHelper::GETPARAM_ENTRYID, 0);
         $entry = $helper->getEntry($ident);
-        $entry = $helper->setImageDefault($entry, $typeMappingEntry, $params->get('entry_image_default', ''));
-        $entry = $helper->addImage($entry, $typeMappingEntry, $params->get('entryImageTag', ''));
+        $entry = $helper->setImage($entry, $typeMappingEntry, $params->get('entry_image_default', ''));
     }
 
     $displayList = !$displayEntry || $params->get('list_display', true);
@@ -63,8 +62,8 @@ try {
     /* get data of rows */
     $columns = $helper->getColumnLabels();
     $data = $helper->getData();
-    $data = $helper->alterData($data, $typeMapping);
-    $data = $helper->addLink($data, $params->get('linkText', 'Link'), $module->id, $params->get('linkIdent', 'id'));
+    $data = $helper->setImageMultiple($data, $typeMapping);
+    $data = $helper->addLinkMultiple($data, $params->get('linkText', 'Link'), $module->id, $params->get('linkIdent', 'id'));
 
     /* flatten data as a preparation for displaing it with qldbtable */
     $columnsLinked = explode(',', $params->get('columnsLinked', ''));
