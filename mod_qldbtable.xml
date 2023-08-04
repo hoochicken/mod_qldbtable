@@ -107,6 +107,12 @@
 					<option value="1">JSHOW</option>
 					<option value="0">JHIDE</option>
 				</field>
+				<field name="navigation" type="radio" default="0" label="MOD_QLDBTABLE_NAVIGATION_LABEL" class="btn-group btn-group-yesno">
+					<option value="1">JSHOW</option>
+					<option value="0">JHIDE</option>
+				</field>
+				<field name="linkTextPrev" label="MOD_QLDBTABLE_LINKTEXTPREV_LABEL" default="MOD_QLDBTABLE_PREV" />
+				<field name="linkTextNext" label="MOD_QLDBTABLE_LINKTEXTNEXT_LABEL" default="MOD_QLDBTABLE_NEXT" />
 			</fieldset>
 
 			<fieldset name="entry">

@@ -25,6 +25,7 @@ try {
     $baseUrl = QldbtableHelper::getBaseUrl();
     $columnsLinked = explode(',', $params->get('columnsLinked', ''));
     $entry = [];
+    $displayNavigation = (bool)$params->get('navigation', false);
     array_walk($columnsLinked, function(&$item) {$item = trim($item);});
 
     /* initiate mappings of table, cards and entry */

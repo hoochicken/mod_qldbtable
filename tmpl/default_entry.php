@@ -20,6 +20,9 @@ defined('_JEXEC') or die;
 /* @var array $entry */
 /* @var string $originalUrl */
 /* @var bool $displayBackToList */
+/* @var bool $displayNavigation */
+/* @var ?array $next */
+/* @var ?array $prev */
 
 ?>
 <div class="entry">
@@ -31,7 +34,15 @@ defined('_JEXEC') or die;
             <span class="value <?= $column ?>"><?= $entry[$column] ?? '' ?></span>
         </div>
     <?php endforeach;?>
-    <?php if ($displayBackToList) : ?>
-        <a class="btn btn-primary" href="<?= $originalUrl ?>"><?= Text::_('MOD_QLDBTABLE_BACKTOLIST') ?></a>
+    <div class="navigation d-flex justify-content-between">
+    <?php if ($displayNavigation && !is_null($prev)) : ?>
+        <a class="btn btn-secondary" href="<?= $next[QldbtableHelper::QLDBTABLE][QldbtableHelper::QLDBTABLE_URL] ?>"><?= Text::_('MOD_QLDBTABLE_PREV') ?></a>
     <?php endif; ?>
+    <?php if ($displayBackToList) : ?>
+        <a class="btn btn-secondary" href="<?= $originalUrl ?>"><?= Text::_('MOD_QLDBTABLE_BACKTOLIST') ?></a>
+    <?php endif; ?>
+    <?php if ($displayNavigation && !is_null($next)) : ?>
+        <a class="btn btn-secondary" href="<?= $next[QldbtableHelper::QLDBTABLE][QldbtableHelper::QLDBTABLE_URL] ?>"><?= Text::_('MOD_QLDBTABLE_NEXT') ?></a>
+    <?php endif; ?>
+    </div>
 </div>

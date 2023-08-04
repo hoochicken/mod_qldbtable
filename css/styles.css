@@ -14,3 +14,5 @@
 /** custom*/
 .qldbtable {}
 .qldbtable .card { float: left; }
+.qldbtable .justify-content-between {-webkit-box-pack: justify!important;-ms-flex-pack: justify!important;justify-content: space-between!important;}
+.qldbtable .d-flex { display: -webkit-box!important; display: -ms-flexbox!important; display: flex!important;}
