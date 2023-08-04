@@ -42,10 +42,10 @@ try {
     $displayEntry = $helper->checkDisplayEntry($input);
     $displayList = !$displayEntry || $params->get('list_display', true);
     $displayBackToList = (bool)$params->get('back_to_list', false);
+    $ident = $input->getInt(QldbtableHelper::GETPARAM_ENTRYID, 0);
 
     /* get data of single entry, if needed */
     if ($displayEntry) {
-        $ident = $input->getInt(QldbtableHelper::GETPARAM_ENTRYID, 0);
         $entry = $helper->getEntry($ident);
         $entry = $helper->setImage($entry, $typeMappingEntry, $params->get('entry_image_default', ''));
         $entry = $helper->addTags($entry, $ident, $module->id, $baseUrl, $params->get('linkIdent', 'id'));
@@ -68,9 +68,12 @@ try {
     /* get data of rows */
     $columns = $helper->getColumnLabels();
     $data = $helper->getData();
-    $data = $helper->setImageMultiple($data, $typeMapping);
-    $data = $helper->addTagsMultiple($data, $params->get('linkText', 'Link'), $module->id, $baseUrl, $params->get('linkIdent', 'id'));
-    $dataFlattened = $helper->flattenDataMultiple($data, $typeMapping, (bool)$params->get('entry_display', false), (bool)$params->get('imageTag', false), $columnsLinked);
+    foreach ($data as $k => $item) {
+        $item = $helper->setImage($item, $typeMappingEntry, $params->get('entry_image_default', ''));
+        $item = $helper->addTags($item, $ident, $module->id, $baseUrl, $params->get('linkIdent', 'id'));
+        $item = $helper->flattenData($item, $typeMapping, (bool)$params->get('entry_display', false), (bool)$params->get('imageTag', false), $columnsLinked);
+        $data[$k] = $item;
+    }
 
     /* finally display */
     require JModuleHelper::getLayoutPath('mod_qldbtable', $params->get('layout', 'default'));

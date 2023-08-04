@@ -15,14 +15,13 @@ defined('_JEXEC') or die;
 /* @var \Joomla\Registry\Registry $params */
 /* @var array $columns */
 /* @var array $data */
-/* @var array $dataFlattened */
 /* @var Joomla\Application\ $app */
 /* @var string $imageColumn */
 /* @var string $labelColumn */
 /* @var string $cardCssClass */
 ?>
 <div class="card-group">
-<?php foreach ($dataFlattened as $k => $entry) : ?>
+<?php foreach ($data as $k => $entry) : ?>
     <?php $entryLink = $entry[QldbtableHelper::QLDBTABLE][QldbtableHelper::QLDBTABLE_URL] ?? ''; ?>
     <div class="card <?php echo $cardCssClass; ?>">
         <?php if ($params->get('imageLinked', false) && !empty($entryLink)) : ?>
