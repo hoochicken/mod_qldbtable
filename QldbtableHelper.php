@@ -154,7 +154,7 @@ class QldbtableHelper
             }
             if ($entryDisplay && in_array($columnName, $columnsLinked)) {
                 $url = $entry[static::QLDBTABLE][static::QLDBTABLE_URL];
-                $entry[$columnName] = static::generateHtmlLink($url, $entry[$columnName]);
+                $entry[$columnName] = static::generateHtmlLink($url, $entry[$columnName] ?? '');
             }
         }
         return $entry;

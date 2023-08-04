@@ -39,17 +39,17 @@ defined('_JEXEC') or die;
         <?php if (is_null($prev)) : ?>
             <span class="btn btn-secondary disabled"><?= Text::_('MOD_QLDBTABLE_PREV') ?></span>
         <?php else : ?>
-            <a class="btn btn-secondary" href="<?= $prev[QldbtableHelper::QLDBTABLE][QldbtableHelper::QLDBTABLE_URL] ?>"><?= Text::_('MOD_QLDBTABLE_PREV') ?></a>
+            <a class="btn btn-secondary" href="<?= $prev[QldbtableHelper::QLDBTABLE][QldbtableHelper::QLDBTABLE_URL] ?>"><?= $params->get('linkTextPrev', Text::_('MOD_QLDBTABLE_PREV')) ?></a>
         <?php endif; ?>
     <?php endif; ?>
     <?php if ($displayBackToList) : ?>
-        <a class="btn btn-secondary" href="<?= $originalUrl ?>"><?= Text::_('MOD_QLDBTABLE_BACKTOLIST') ?></a>
+        <a class="btn btn-secondary" href="<?= $originalUrl ?>"><?= $params->get('linkTextBackToList', Text::_('MOD_QLDBTABLE_BACKTOLIST')) ?></a>
     <?php endif; ?>
     <?php if ($displayNavigation) : ?>
         <?php if (is_null($next)) : ?>
             <span class="btn btn-secondary disabled"><?= Text::_('MOD_QLDBTABLE_PREV') ?></span>
         <?php else : ?>
-            <a class="btn btn-secondary" href="<?= $next[QldbtableHelper::QLDBTABLE][QldbtableHelper::QLDBTABLE_URL] ?>"><?= Text::_('MOD_QLDBTABLE_NEXT') ?></a>
+            <a class="btn btn-secondary" href="<?= $next[QldbtableHelper::QLDBTABLE][QldbtableHelper::QLDBTABLE_URL] ?>"><?= $params->get('linkTextNext', Text::_('MOD_QLDBTABLE_NEXT')) ?></a>
         <?php endif; ?>
     <?php endif; ?>
     </div>
