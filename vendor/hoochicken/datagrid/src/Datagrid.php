@@ -64,7 +64,7 @@ class Datagrid
     public function getCell($content, bool $th = false, string $class = ''): string
     {
         $cell = $th ? self::TH : self::TD;
-        return str_replace('{content}', $content, $cell);
+        return str_replace('{content}', (string)$content, $cell);
     }
 
     public function getTr(array $row, bool $th = false): string

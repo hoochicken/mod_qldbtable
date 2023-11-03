@@ -8,17 +8,20 @@
 
 // no direct access
 use Joomla\CMS\Factory;
+use Joomla\CMS\Helper\ModuleHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\Database\DatabaseInterface;
 
 defined('_JEXEC') or die;
-require_once dirname(__FILE__).'/QldbtableHelper.php';
-require_once dirname(__FILE__).'/vendor/autoload.php';
+require_once __DIR__ . '/QldbtableHelper.php';
+require_once __DIR__ . '/php/classes/QldbtableError.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 /** @var stdClass $module */
 /** @var \Joomla\Registry\Registry $params */
 
 try {
+    $errores = new QldbtableError;
     $app = Factory::getApplication();
     $input = Factory::getApplication()->getInput();
     $helper = new QldbtableHelper($module, $params, Factory::getContainer()->get(DatabaseInterface::class));
@@ -90,8 +93,25 @@ try {
     $prev = $helper->getPrev($data, $entry, $params->get('identColumn', 'id'));
     $next = $helper->getNext($data, $entry, $params->get('identColumn', 'id'));
 
+    // data for charts
+    $displayCharts = $params->get('charts_display', 0);
+    if ($displayCharts) {
+        $chartLimit = $params->get('charts_limit', 5);
+        $chartLabelInLegend = $params->get('charts_label_in_legend', '# in counts');
+        $chartsLabelColumn = $params->get('charts_label_column', 'label');
+        $dataForCharts = array_slice($data, 0, $chartLimit > 0 ? $chartLimit : 0);
+        $dataForCharts_labels = array_column($dataForCharts, $chartsLabelColumn);
+        if (empty($dataForCharts_labels)) {
+            $errores->addError(sprintf('Column "%s" could not be found.', $chartsLabelColumn));
+            $dataForCharts_labels = range(1, $dataForCharts);
+        }
+        array_walk($dataForCharts_labels, function(&$item) {
+            $item = sprintf('"%s"', $item);
+        });
+        $dataForCharts_counter = array_column($dataForCharts, $params->get('charts_counter_column', 'counter'));
+    }
     /* finally display */
-    require JModuleHelper::getLayoutPath('mod_qldbtable', $params->get('layout', 'default'));
+    require ModuleHelper::getLayoutPath('mod_qldbtable', $params->get('layout', 'default'));
 } catch (Exception $e) {
     $app->enqueueMessage(implode('<br >', [$e->getMessage(), $e->getFile(), $e->getLine()]));
 }

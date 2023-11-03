@@ -1,5 +1,10 @@
 {
     "require": {
         "hoochicken/datagrid": "^1.0"
+    },,
+    "autoload-dev": {
+        "psr-4": {
+            "Hoochicken\\Datagrid\\": "_lab/hoochicken/datagrid/src"
+        }
     }
 }

@@ -7,8 +7,6 @@
  */
 
 // no direct access
-use Joomla\Input\Input;
-
 defined('_JEXEC') or die;
 
 class QldbtableHelper
@@ -137,7 +135,7 @@ class QldbtableHelper
 
     public function addTags(array $entry, string $linkText, int $moduleId, string $baseUrl = '', string $identColumn = 'id'): array
     {
-        $id = $entry[$identColumn];
+        $id = $entry[$identColumn] ?? sprintf('Column %s was not found', $identColumn);
         $url = QldbtableHelper::getUrl($baseUrl, $moduleId, $id);
         $entry[QldbtableHelper::QLDBTABLE_TAGS][QldbtableHelper::QLDBTABLE_LINK] = QldbtableHelper::getLink($baseUrl, $linkText, $moduleId, $id);
         $entry[QldbtableHelper::QLDBTABLE][QldbtableHelper::GETPARAM_ENTRYID] = $id;
@@ -247,7 +245,7 @@ class QldbtableHelper
 
             $fieldname = sprintf($columnField, $i);
             $column = $this->params->get($fieldname);
-            $columnDisplay = explode(';', $column);
+            $columnDisplay = explode(';', (string)$column);
             if (3 !== count($columnDisplay)) {
                 continue;
             }
@@ -282,12 +280,12 @@ class QldbtableHelper
         $query->select('*');
         $query->from($tablename);
 
-        $condition = trim($this->params->get('conditions'));
+        $condition = trim($this->params->get('conditions', ''));
         if (!empty($condition)) {
             $query->where($condition);
         }
 
-        $orderBy = trim($this->params->get('order_by'));
+        $orderBy = trim((string)$this->params->get('order_by', ''));
         if (!empty($orderBy)) {
             $query->order($orderBy);
         }

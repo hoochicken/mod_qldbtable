@@ -15,6 +15,12 @@ defined('_JEXEC') or die;
 /* @var \Joomla\Registry\Registry $params */
 /* @var array $columns */
 /* @var array $data */
+
+array_walk($data, function(&$item) {
+    unset($item['qlbdtable_raw_data']);
+    unset($item['qlbdtable_tags']);
+    unset($item['qlbdtable']);
+});
 ?>
 
 <?php
