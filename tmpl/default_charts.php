@@ -43,8 +43,7 @@ const ctx = document.getElementById('%s');
     }
   });
 "
-    // , $canvasCssId, "'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'" , "12, 19, 3, 5, 2, 3");
-    , $canvasCssId, implode(',', $dataForCharts_labels) , $chartLabelInLegend, implode(',', $dataForCharts_counter));
+ , $canvasCssId, implode(',', $dataForCharts_labels) , $chartLabelInLegend, implode(',', $dataForCharts_counter));
 $wa->addInlineScript($script);
 ?>
 <canvas id="<?= $canvasCssId ?>"></canvas>
