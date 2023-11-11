@@ -13,7 +13,7 @@ class QldbtableHelper
 {
     public Joomla\Registry\Registry $params;
     public stdClass $module;
-    public JDatabaseDriver $db;
+    public $db;
     const NUMBER_COLUMNS = 10;
     const DISPLAY_DEFAULT = 'table';
     const DISPLAY_TABLE = 'table';

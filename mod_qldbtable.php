@@ -99,6 +99,8 @@ try {
         $chartLimit = $params->get('charts_limit', 5);
         $chartLabelInLegend = $params->get('charts_label_in_legend', '# in counts');
         $chartsLabelColumn = $params->get('charts_label_column', 'label');
+        $chartsBlacklist = $params->get('charts_blacklist', '');
+        $data = array_filter($data, function($item) use ($chartsBlacklist) { return false === strpos(strtolower($item['title'] ?? ''), $chartsBlacklist);});
         $dataForCharts = array_slice($data, 0, $chartLimit > 0 ? $chartLimit : 0);
         $dataForCharts_labels = array_column($dataForCharts, $chartsLabelColumn);
         if (empty($dataForCharts_labels)) {

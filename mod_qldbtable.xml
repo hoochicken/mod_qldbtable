@@ -10,7 +10,7 @@
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
 	<authorEmail>mareike.riegel@ql.de</authorEmail>
 	<authorUrl>ql.de</authorUrl>
-	<version>1.4.0</version>
+	<version>1.4.1</version>
 	<description>MOD_QLDBTABLE_XML_DESCRIPTION</description>
 	<updateservers>
         <server type="extension" priority="1" name="qldbtable - Updates">https://raw.githubusercontent.com/hoochicken/mod_qldbtable/main/_jupdate/mod_qldbtable.xml</server>
@@ -144,6 +144,7 @@
 				<field name="charts_type" label="MOD_QLDBTABLE_TYPE_LABEL" default="bar">
 					<option value="bar">MOD_QLDBTABLE_TYPE_LABEL</option>
 				</field>
+				<field name="charts_blacklist" label="MOD_QLDBTABLE_BLACKLIST_LABEL" />
 			</fieldset>
 
 			<fieldset
